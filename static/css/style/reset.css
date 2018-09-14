@@ -1,0 +1,716 @@
+/*!
+ * reset.css 重置样式
+ */
+
+html {
+    box-sizing: border-box;
+    overflow-y: scroll;
+    -webkit-text-size-adjust: 100%;
+    min-height: 100%;
+}
+
+*,
+ :after,
+ :before {
+    background-repeat: no-repeat;
+    box-sizing: inherit
+}
+
+:after,
+ :before {
+    text-decoration: inherit;
+    vertical-align: inherit
+}
+
+* {
+    padding: 0;
+    margin: 0
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0
+}
+
+hr {
+    overflow: visible
+}
+
+li {
+    list-style: none;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+    display: block
+}
+
+summary {
+    display: list-item
+}
+
+small {
+    font-size: 80%
+}
+
+[hidden],
+template {
+    display: none
+}
+
+abbr[title] {
+    border-bottom: 1px dotted;
+    text-decoration: none
+}
+
+a {
+    text-decoration: none;
+    background-color: transparent;
+    color: #666;
+    -webkit-text-decoration-skip: objects
+}
+
+a:active,
+a:hover {
+    outline-width: 0
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: monospace, monospace
+}
+
+b,
+strong {
+    font-weight: bolder
+}
+
+dfn {
+    font-style: italic
+}
+
+mark {
+    background-color: #ff0;
+    color: #000
+}
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline
+}
+
+sub {
+    bottom: -.25em
+}
+
+sup {
+    top: -.5em
+}
+
+input {
+    border-radius: 0
+}
+
+[role=button],
+[type=button],
+[type=reset],
+[type=submit],
+button {
+    cursor: pointer
+}
+
+[disabled] {
+    cursor: default
+}
+
+[type=number] {
+    width: auto
+}
+
+[type=search] {
+    -webkit-appearance: textfield
+}
+
+[type=search]::-webkit-search-cancel-button,
+[type=search]::-webkit-search-decoration {
+    -webkit-appearance: none
+}
+
+textarea {
+    overflow: auto;
+    resize: vertical
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    font: inherit
+}
+
+optgroup {
+    font-weight: 700
+}
+
+button {
+    overflow: visible
+}
+
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner,
+button::-moz-focus-inner {
+    border-style: 0;
+    padding: 0
+}
+
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner,
+button:-moz-focusring {
+    outline: 1px dotted ButtonText
+}
+
+[type=reset],
+[type=submit],
+button,
+html[type=button] {
+    -webkit-appearance: button
+}
+
+:focus,
+:hover {
+    outline: none;
+}
+
+button,
+select {
+    text-transform: none
+}
+
+button,
+input,
+select,
+textarea {
+    background-color: transparent;
+    border-style: none;
+    color: inherit
+}
+
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none
+}
+
+select::-ms-expand {
+    display: none
+}
+
+select::-ms-value {
+    color: currentColor
+}
+
+legend {
+    border: 0;
+    color: inherit;
+    display: table;
+    max-width: 100%;
+    white-space: normal
+}
+
+::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    font: inherit
+}
+
+[type=search] {
+    -webkit-appearance: textfield;
+    outline-offset: -2px
+}
+
+img {
+    border-style: none
+}
+
+progress {
+    vertical-align: baseline
+}
+
+svg:not(:root) {
+    overflow: hidden
+}
+
+audio,
+canvas,
+progress,
+video {
+    display: inline-block
+}
+
+@media screen {
+    [hidden~=screen] {
+        display: inherit
+    }
+    [hidden~=screen]:not(:active):not(:focus):not(:target) {
+        position: absolute!important;
+        clip: rect(0 0 0 0)!important
+    }
+}
+
+[aria-busy=true] {
+    cursor: progress
+}
+
+[aria-controls] {
+    cursor: pointer
+}
+
+[aria-disabled] {
+    cursor: default
+}
+
+::-moz-selection {
+    background-color: #b3d4fc;
+    color: #000;
+    text-shadow: none
+}
+
+::selection {
+    background-color: #b3d4fc;
+    color: #000;
+    text-shadow: none
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: initial;
+    background-image: none;
+    color: initial;
+}
+
+:-ms-input-placeholder ,
+:-moz-placeholder , /* Mozilla Firefox 4 to 18 */ 
+::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+    color: #cbcbcb;
+}
+::-webkit-input-placeholder {
+    color: #cbcbcb;
+}
+/* pre 自动换行 */
+pre{  
+    white-space: -moz-pre-wrap;   
+    white-space: -o-pre-wrap;    
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+/* 公用 */
+
+.fw {
+    width: 100%;
+}
+
+.w {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.pr {
+    position: relative;
+}
+
+.pa {
+    position: absolute;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.oh {
+    overflow: hidden;
+}
+
+.tc {
+    text-align: center;
+}
+
+.dn {
+    display: none;
+}
+
+.ellipsis {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.shadow {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+    will-change: box-shadow;
+    transition: box-shadow .2s ease-in;
+}
+li.shadow:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .1);
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.clearfix:after {
+    display: block;
+    clear: both;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    content: ".";
+}
+
+.usn{
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;/*此属性ff下需要加前缀*/
+    user-select: none; 
+}
+
+
+/* 页面  - 头部 */
+
+body {
+    font-size: 14px;
+    font-family: "Hiragino Sans GB","Microsoft Yahei",SimSun,Arial,"Helvetica Neue",Helvetica;
+    background-color: #f3f3f3;
+    min-height: 100%;
+}
+
+.head {
+    color: #676767;
+    font-size: 16px;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #fff;
+}
+
+.logo {
+    width: 204px;
+    display: block;
+}
+
+.logo img {
+    vertical-align: middle;
+    width: 140px;
+    height: 60px;
+}
+
+.mainNavs a {
+    margin-right: 56px;
+    position: relative;
+}
+
+.mainNavs a:last-child {
+    margin-right: 0;
+}
+
+.mainNavs a:hover,
+.mainNavs a.active {
+    color: #1FD19F;
+}
+.mainNavs a.needed:after{
+    content: '待完善';
+    position: absolute;
+    top: -5px;
+    right: -44px;
+    font-size: 10px;
+    color: #fff;
+    display: block;
+    width: 40px;
+    height: 16px;
+    line-height: 16px;
+    background-color: #fc6c6c;
+    border-radius: 6px;
+    border-bottom-left-radius: 0;
+    text-align: center;
+}
+
+.academy .mainNavs a:hover,
+.academy .mainNavs a.active  {
+    color: #5995f1;
+}
+.academy .mainNavs a.needed{
+    position: relative;
+}
+
+
+
+
+.nickname {
+    text-align: right;
+}
+.logout{
+    color: #cbcbcb;
+    font-size: 12px;
+    right: -30px;
+    top: 0;
+}
+
+/* 页面主体布局 */
+.content {
+    margin-top: 30px;
+}
+.conLeft {
+    width: 720px;
+}
+
+/* 页面主体上部工具栏 */
+
+.toolswrap {
+    height: 44px;
+    line-height: 44px;
+    background-color: #fff;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.toolswrap .selectwrap:first-child>.selecthead {
+    padding-left: 20px;
+}
+
+
+/* 下拉菜单 */
+
+.selectwrap {
+    cursor: pointer;
+    color: #232323;
+    font-size: 13px;
+}
+
+.selectwrap::after {
+    display: block;
+    content: '';
+    width: 1px;
+    height: 24px;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    background-color: #dedede;
+}
+
+.selectwrap>.selecthead {
+    display: block;
+    font-weight: 400;
+    padding-right: 22px;
+    background: url(../images/icon-arrow-down.png) no-repeat 94% center;
+    background: url(../images/icon-arrow-down.png) no-repeat calc(100% - 12px) center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.selectwrap>.selecthead.active {
+    background: url(../images/icon-arrow-up.png) no-repeat 94% center;
+    background: url(../images/icon-arrow-up.png) no-repeat calc(100% - 12px) center;
+}
+
+.selectwrap>.selectlist {
+    display: none;
+    width: 480px;
+    position: absolute;
+    top: 54px;
+    z-index: 999;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+}
+
+.selectwrap>.selectlist>li {
+    position: relative;
+    float: left;
+    line-height: 24px;
+    padding: 0 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 160px;
+    box-sizing: border-box;
+}
+
+.selectwrap>.selectlist>li.active {
+    color: #1FD19F;
+}
+
+.academy .selectwrap>.selectlist>li.active {
+    color: #5995f1;
+}
+
+
+/* 搜索栏，与toolswrap同级 */
+
+.searchwrap form {
+    width: 100%;
+}
+
+.searchwrap form>input[type=text] {
+    padding-left: 12px;
+    width: 400px;
+    height: 100%;
+    font-size: 13px;
+    line-height: normal;
+}
+.searchwrap form>input[type=text]::-ms-clear{ /* 清楚ie下输入框自带的清空X按钮*/ 
+    display:none;
+}
+
+.searchwrap form>button {
+    right: 20px;
+}
+
+
+/* 遮罩 */
+
+.msk {
+    display: none;
+    position: absolute;
+    top: 64px;
+    width: 100%;
+    height: 100%;
+    background-color: #f3f3f3;
+    opacity: .8;
+    z-index: 23;
+}
+
+
+
+/* 页面 - 内容区 - 右侧 */
+.conRight {
+    width: 250px;
+}
+.userBox {
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 15px;
+}
+.userInfo {
+    display: block;
+    color: #232323;
+    font-size: 16px;
+    border-bottom: 1px solid #dedede;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.userName {
+    display: block;
+    line-height: 40px;
+}
+.userOtherList li {
+    line-height: 44px;
+    font-size: 14px;
+    overflow: hidden;
+    background: url('../images/arrow_icon.png') no-repeat center right;
+    padding-right: 14px;
+}
+.userOtherListTit.tit-1 {
+    background: url('../images/tit-1.png') no-repeat center left;
+}
+.userOtherListTit.tit-2 {
+    background: url('../images/tit-2.png') no-repeat center left;
+}
+.userOtherListTit.tit-3 {
+    background: url('../images/tit-3.png') no-repeat center left;
+}
+.userOtherListTit {
+    width: 160px;
+    padding-left: 30px;
+}
+.userOtherList a:hover,
+.userOtherList a {
+    display: block;
+    color: #808080;
+}
+.publishBtn {
+    width: 220px;
+    height: 48px;
+    line-height: 48px;
+    background: #1FD19F;
+    box-shadow: 0 5px 10px 0 rgba(31,209,159,0.30);
+    border-radius: 6px;
+    color: #fff;
+    display: block;
+    text-align: center;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 15px;
+    letter-spacing: 4px;
+}
+.publishBtn:hover {
+    box-shadow: 0 8px 16px 0 rgba(31,209,159,0.30);
+}
+
+/* ad */
+.ads:first-of-type {
+    margin-top: 0;
+}
+.ads {
+    margin-top: 30px;
+}
+.ads a{
+    display: block;
+    margin-bottom: 20px;
+}
+.ads img {
+    border-radius: 6px;
+}
+
+/* 未搜索到数据时 */
+.content ul>li.nodata {
+    color: #aaa;
+    width: 100%;
+    text-align: center;
+    background-color: transparent;
+    cursor: default;
+    padding-top: 155px;
+}
+.content ul>li.nodata.academy {
+    background: url(../images/nodata-academy.png) center 40px no-repeat;
+}
+.content ul>li.nodata.company {
+    background: url(../images/nodata-company.png) center 40px no-repeat;
+}
+.content ul>li.nodata.post {
+    background: url(../images/nodata-post.png) center 40px no-repeat;
+}
+.content ul>li.nodata.resume {
+    background: url(../images/nodata-resume.png) center 40px no-repeat;
+}
+.content ul>li.nodata:hover{
+    box-shadow: 0 0 0 0 transparent;
+}
+.content ul>li.nodata::after {
+    display: none;
+}

@@ -1,0 +1,183 @@
+/*
+* 首页
+* Created by haibao
+*/
+
+/* 页面 - 内容区 - 左侧banner */
+.banners {
+    width: 640px;
+    height: 300px;
+    margin-bottom: 30px;
+}
+.bannerBox{
+    width: 720px;
+    position: relative;
+}
+.bannerList {
+    width: 720px;
+    height: 300px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -360px;
+}
+.bannerList li {
+    position: absolute;
+    top: 0;
+    left: 0;
+    list-style: none;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    opacity: 0;
+    -webkit-transform: translate3d(0,0,0) scale(0.81);
+    -ms-transform: translate3d(0,0,0) scale(0.81);
+    -moz-transform: translate3d(0,0,0) scale(0.81);
+    -o-transform: translate3d(0,0,0) scale(0.81);
+    transform: translate3d(0,0,0) scale(0.81);
+}
+.bannerList img {
+    width: 640px;
+    height: 300px;
+    border: none;
+    float: left;
+    border-radius: 6px;
+}
+.bannerList .p2 {
+    -webkit-transform: translate3d(200px,0,0) scale(0.81);
+    -moz-transform: translate3d(200px,0,0) scale(0.81);
+    -ms-transform: translate3d(200px,0,0) scale(0.81);
+    -o-transform: translate3d(200px,0,0) scale(0.81);
+    transform: translate3d(200px,0,0) scale(0.81);
+    -moz-transform-origin: 0 50%;
+    -ms-transform-origin: 0 50%;
+    -o-transform-origin: 0 50%;
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    opacity: 0.8;
+    z-index: 2;
+}
+.bannerList .p1 {
+    -moz-transform: translate3d(0,0,0) scale(1);
+    -ms-transform: translate3d(0,0,0) scale(1);
+    -o-transform: translate3d(0,0,0) scale(1);
+    -webkit-transform: translate3d(0,0,0) scale(1);
+    transform: translate3d(0,0,0) scale(1);
+    z-index: 3;
+    opacity: 1;
+}
+.next {
+    width: 60px;
+    height: 60px;
+    display: block;
+    position: absolute;
+    top: 130px;
+    right: 50px;
+    z-index: 222;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    background: url('../../img/banner_next_icon.png') no-repeat center;
+}
+.next:hover {
+    background: url('../../../img/banner_next_hover_icon.png') no-repeat center;
+}
+
+
+.conHead{
+    padding: 0 30px 0 20px; 
+}
+.conHead h2{
+    font-size: 13px;
+    color: #232323;
+}
+.conHead .more{
+    font-size: 12px;
+    color: #676767;
+}
+.conHead .more:hover {
+    color: #999;
+}
+
+/* 推荐院校列表 */
+
+.academyList {
+    margin-right: -20px;
+}
+.academyList > ul > li {
+    width: 350px;
+    height: 180px;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 20px 0;
+    margin: 0 20px 20px 0;
+    float: left;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+.academyLeft {
+    border-right: 1px solid #d8d8d8;
+    width: 152px;
+    height: 140px;
+    overflow: hidden;
+}
+.academyLeft .imgbox{
+    width: 88px;
+    height: 88px;
+    margin: 15px auto auto;
+}
+.academyLeft .imgbox>img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+}
+.academyLeft>p {
+    color: #232323;
+    max-width: 100px;
+    margin: 0 auto;
+}
+.academyRight {
+    margin-left: 177px;
+}
+.academyRtInfo {
+    margin-bottom: 20px;
+}
+.academyRtInfo>span {
+    width: 50%;
+    display: block;
+    float: left;
+}
+.academyRtInfo>span span {
+    display: block;
+    font-size: 12px;
+    color: #aaa;
+}
+.academyRtInfo>span span.val {
+    color: #ff934e;
+    font-size: 16px;
+    width: 90%;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.academyRtList li>span {
+    color: #878787;
+    font-size: 12px;
+    line-height: 19px;
+}
+.academyRtList li:nth-child(4)>span {
+    display: inline-block;
+    max-width: 110px;
+    padding-right: 14px;
+    background: url(../../../images/icon-db-arrow.png) no-repeat center right;
+}
