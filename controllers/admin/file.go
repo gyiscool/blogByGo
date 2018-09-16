@@ -51,7 +51,7 @@ func (c *FileController) Post() {
 	timestamp := time.Now().Unix()
 	var fileSrc string
 	fileNameNot := strconv.FormatInt(timestamp, 10)
-	fileSrc = `C:\Users\gengyang\go\src\gojob\public\file\`
+	fileSrc = `public\file\`
 	//var fileName = (string(fileSrc) + string(r) + strconv.FormatInt(timestamp, 10) + string(h.Filename))
 	var fileName1 = (string(fileSrc) + strconv.FormatInt(timestamp, 10) + string(path.Ext(h.Filename)))
 

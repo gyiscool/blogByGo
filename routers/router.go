@@ -3,6 +3,7 @@ package routers
 import (
 	"gojob/controllers"
 	"gojob/controllers/admin"
+	"gojob/controllers/common"
 
 	"github.com/astaxie/beego"
 )
@@ -31,6 +32,7 @@ func init() {
 	beego.Router("/adm/art/?:id", &admin.ArtController{})
 
 	beego.Router("/adm/file", &admin.FileController{})
+	beego.Router("/common/file", &common.FileController{})
 
 	beego.Router("/api/list", &admin.ArticlesController{})
 }

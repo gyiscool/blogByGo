@@ -53,16 +53,6 @@
       <input type="checkbox" name="switch" lay-skin="switch">
     </div>
   </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label">图片</label>
-    <div class="layui-input-block">
-     <button type="button" class="layui-btn" id="test1">
-	  	<i class="layui-icon">&#xe67c;</i>上传图片
-	</button><br><br>
-	<input type="hidden" name="Headimg" value="{{if .article}}{{.article.Head_img}}{{end}}" >
-	<img {{if .article}}{{if .article.Head_img}}src="{{.article.Head_img}}"{{end}}{{end}} class="layui-upload-img" height="200" width="200" >
-	</div>
-  </div>
 
   <div class="layui-form-item layui-form-text">
     <label class="layui-form-label">简介</label>

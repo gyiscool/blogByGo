@@ -13,6 +13,8 @@ window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0
 	<link rel="stylesheet" id="style-css" href="https://yusi123.com/wp-content/themes/yusi/share.css" type="text/css" media="all">
 	<link rel="stylesheet" id="style-css" href="/static/css/style/style.css" type="text/css" media="all">
 	<link rel="stylesheet" id="style-cssa" href="/static/css/home/style.css" type="text/css" media="all">
+	
+    <link rel="stylesheet" href="/static\editor.md-master\css\editormd.css" />
 	<script type="text/javascript" src="/static/js/home/jquery.min.js"></script>
 	<script type="text/javascript" src="/static/js/home/jquery.js"></script>
 	<script src="/static/js/home/wp-emoji-release.min.js" type="text/javascript" defer=""></script>
@@ -289,7 +291,7 @@ window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0
 	<footer class="footer">
 		<div class="footer-inner">
 			<div class="copyright pull-left">
-			 <a href="" title="gy博客">GY的博客</a> 版权所有，保留一切权利 · <a href="" title="站点地图">站点地图</a>   ·   基于goweb构建   © 2011-2014  ·   托管于 <a rel="nofollow" target="_blank" href="">阿里云主机</a> &amp; <a rel="nofollow" target="_blank" href="">七牛云存储</a>
+			 <a href="" title="gy博客">GY的博客</a> 版权所有，保留一切权利 · <a href="" title="站点地图">站点地图</a>   ·   基于goweb构建   © 2011-2014  ·   托管于 <a rel="nofollow" target="_blank" href="">阿里云主机</a> &amp; <a rel="nofollow" target="_blank" href="">苏ICP备17004846号-1</a>
 			</div>
 			<div class="trackcode pull-right"></div>
 		</div>
