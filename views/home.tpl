@@ -171,7 +171,7 @@ window._deel = {name: '个人博客',url: '8', ajaxpager: '/ss/ss', commenton: 0
 	<footer class="footer">
 		<div class="footer-inner">
 			<div class="copyright pull-left">
-			 <a href="http://yusi123.com/" title="gy博客">GY的博客</a> 版权所有，保留一切权利 · <a href="" title="站点地图">站点地图</a>   ·   基于goweb构建   © 2011-2014  ·   托管于 <a rel="nofollow" target="_blank" href="http://yusi123.com/go/aliyun">阿里云主机</a> &amp; <a rel="nofollow" target="_blank" href="http://yusi123.com/go/qiniu">个人存储</a>
+			 <a href="http://yusi123.com/" title="gy博客">GY的博客</a> 版权所有，保留一切权利 · <a href="" title="站点地图">站点地图</a>   ·   基于goweb构建   © 2011-2014  ·   托管于 <a rel="nofollow" target="_blank" href="#">苏ICP备17004846号-1</a> &amp; <a rel="nofollow" target="_blank" href="http://yusi123.com/go/qiniu">个人存储</a>
 			</div>
 			<div class="trackcode pull-right"></div>
 		</div>

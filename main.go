@@ -19,6 +19,8 @@ func init() {
 	orm.RegisterDataBase("default", "mysql", "root:root@(127.0.0.1:3306)/gy?charset=utf8", 30)
 
 	orm.RegisterModel(new(models.User))
+	orm.RegisterModel(new(models.Article))
+	orm.RegisterModel(new(models.ArticleContent))
 	orm.RegisterModel(new(models.Post))
 	orm.RegisterModel(new(models.Profile))
 	orm.RegisterModel(new(models.Comment))

@@ -110,7 +110,7 @@
                 <h1>markdown编辑器</h1> 
                 <!--Define extention plugins for Editor.md-->
             </header>
-            <form method="post" action="http://editormd.ipandao.com/php/post.php">
+           <!-- <form method="post" action="/common/file"> -->
             <div class="gy-header"> 
             	<label class="gy-label">标题:</label> <input type="text" class="gy-input" placeholder="标题：那是我夕阳下的奔跑" /> 
             </div>
@@ -215,20 +215,21 @@
 &lt;/script&gt;
 ```
 </textarea>
+ <textarea class="editormd-html-textarea" name="$id-html-code"></textarea>
         
             </div>
             <div class="gy-publish-footer">
             	<label class="gy-checkbox-div">
-            		<input type="checkbox" class="gy-checkbox" id="gy-checkbox">
+            		<input type="checkbox" class="gy-checkbox" id="gy-checkbox" value='0'>
             		<span class="gy-checkbox-span">暂时不发布</span>
             	</label>
-            	<!--<button class="gy-right-submit">立即提交</button>-->
+            	<button class="gy-right-submit">立即提交</button>
                 <input type="submit" name="submit" value="提交表单 Submit"class="gy-right-submit">
        		</div>
         </div>  
-        </form> 
+       <!-- </form> -->
 
-        <div class="gy-load" style="display: none;"><img src="../images/loading.gif"/><div>    
+       
         
         <script src="/static/js/home/jquery.min.js"></script>
         <script src="../editormd.js"></script>
@@ -262,6 +263,7 @@
             $(function() {
 
 /*******************/
+                var params;
 
             	{
 
@@ -303,6 +305,55 @@
             	}
 
             	//保存接口
+                var  onSubmit;
+                var  saveData;
+                onSubmit = false;
+                $(".gy-right-submit").click(function(){
+                    //提交
+                    
+                    if(onSubmit == true){
+                        alert("请不要频繁提交");
+                    }else{
+                        onSubmit = true;
+
+                        saveData = {
+                            'editormd-html-textarea'      : testEditor.getPreviewedHTML(),
+                            'editormd-markdown-textarea'  : testEditor.getMarkdown(),
+                            'uid'                         : params.uid, 
+                            'title'                       : $("input[class='gy-input']").val(),
+                            'is_public':$("#gy-checkbox").is(":checked") ==true ? 0:1
+                        };
+
+
+                        $.ajax({ 
+                            url: saveUrl, 
+                            //context: document.body, 
+                            data: saveData,
+                            success: function(res){
+                                $("#gy-load").hide();
+                                //映射数据
+                                if(res.Code !=0){
+
+                                    //alert(res.Message);
+
+                                }else{
+
+
+                                    console.log(res);
+
+                                }
+
+                          },
+                          error:function(res){
+                            //alert("网络错误");
+                          }
+
+                        });
+                     }
+
+                    //console.log(testEditor.getMarkdown());
+                    //console.log(testEditor.getPreviewedHTML()+"-----------------");
+                });
 
 
 /*******************/
@@ -327,17 +378,31 @@
                 
                 editormd.methodOne();
 
-                var testEditor = editormd("test-editormd", {
+		 editormd.emoji     = {
+                    path  : "http://www.emoji-cheat-sheet.com/graphics/emojis/",
+                    ext   : ".png"
+                };
+    
+                // Twitter Emoji (Twemoji)  graphics files url path    
+                editormd.twemoji = {
+                    path : "http://twemoji.maxcdn.com/72x72/",
+                    ext  : ".png"
+                };
+
+
+                 testEditor = editormd("test-editormd", {
                     width             : "90%",
                     height            : 640,
+					emoji			  :true,
                     markdown          : "",
                     path              : '../lib/',
                     imageUpload       : true,
+                    saveHTMLToTextarea:true,
                     imageFormats      : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                    imageUploadURL    : "http://www.ipandao.com/editor.md/examples/php/cross-domain-upload.php?test=dfdf",
-                    crossDomainUpload : true,
-                    uploadCallbackURL : "http://localhost/editor.md/examples/php/upload_callback.html?test=dfdf"
+                    imageUploadURL    : "/common/file",
                     
+                    
+
                     /*
                      跨域时，上传的图片服务器后台只需要返回一个跳转 URL 并跳转到原页面同域下的 callback 页面，结构如下：
                      {
