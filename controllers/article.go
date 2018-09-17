@@ -16,9 +16,9 @@ type ArticleController struct {
 
 func (c *ArticleController) Get() {
 
-	var post models.Post
-	var prePost models.Post
-	var nextPost models.Post
+	var article models.Article
+	var preArticle models.Article
+	var nextArticle models.Article
 	var comments []models.Comment
 
 	page, _ := c.GetInt("page") //当前页码
@@ -37,30 +37,32 @@ func (c *ArticleController) Get() {
 		From("term").
 		Where("term_id = ?").
 		OrderBy("iid").Asc().Limit(20).Offset(0)
+
 	o := orm.NewOrm()
 	sql := qb.String()
 
 	o.Raw(sql, 0).QueryRows(&termss)
 
-	fmt.Printf("打印主表全部%+v\n\n\n", termss[0])
-
 	models.WithProfil(termss, "Uid")
 
 	c.Data["terms"] = termss
 
-	_ = o.QueryTable("post").Filter("uid", postId).RelatedSel().One(&post) //
+	_ = o.QueryTable("article").Filter("uid", postId).RelatedSel("Admin", "Term").One(&article) //
 
-	_ = o.QueryTable("post").Filter("iid__lt", post.Iid).RelatedSel().OrderBy("-iid").Limit(1).One(&prePost) //上一个
-	_ = o.QueryTable("post").Filter("iid__gt", post.Iid).RelatedSel().OrderBy("iid").Limit(1).One(&nextPost) //下一个
-	fmt.Printf("文章的iid%+v\n\n\n", nextPost)
-	var newPosts []models.Post
-	num, _ := o.QueryTable("post").Exclude("head_img__exact", "").RelatedSel().OrderBy("-iid").Limit(6).All(&newPosts)
+	fmt.Println("载入")
+	o.LoadRelated(&article, "Content")
+
+	_ = o.QueryTable("article").Filter("iid__lt", article.Iid).RelatedSel().OrderBy("-iid").Limit(1).One(&preArticle) //上一个
+	_ = o.QueryTable("article").Filter("iid__gt", article.Iid).RelatedSel().OrderBy("iid").Limit(1).One(&nextArticle) //下一个
+
+	var newArticles []models.Article
+	num, _ := o.QueryTable("article").RelatedSel().OrderBy("-iid").Limit(6).All(&newArticles)
 
 	//查看评论分页
 	commetnModel := o.QueryTable("comment")
 
-	if post.Iid != 0 {
-		commetnModel = commetnModel.Filter("post_id", post.Iid)
+	if article.Iid != 0 {
+		commetnModel = commetnModel.Filter("post_id", article.Iid)
 	}
 
 	nums, _ := commetnModel.RelatedSel().Count()
@@ -84,13 +86,15 @@ func (c *ArticleController) Get() {
 
 	fmt.Printf("查看时间%+v\n\n\n", num)
 	fmt.Printf("查看时间%+v\n\n\n", nums)
-	c.Data["article"] = post
-	c.Data["preArticle"] = prePost
-	c.Data["nextArticle"] = nextPost
-	c.Data["newArticles"] = newPosts
+	c.Data["article"] = article
+	c.Data["preArticle"] = preArticle
+	c.Data["nextArticle"] = nextArticle
+	c.Data["newArticles"] = newArticles
 	c.Data["comments"] = comments
+	//处理分页
 	c.Data["page"] = page                    //当前页码
 	c.Data["pagenum"] = pagenum              //总页码
 	c.Data["pageUrl"] = "/article/" + postId //当前页码
 	c.TplName = "detail.tpl"
+
 }

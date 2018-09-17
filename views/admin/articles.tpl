@@ -12,7 +12,6 @@
 <script src="/static/layui/src/layui.js"></script>
 <script>
 
-
 layui.use('table', function(){
   var table = layui.table;
 
@@ -44,11 +43,14 @@ layui.use('table', function(){
 
     ]]
   });
-
+	var getUrl,saveUrl;
+	saveUrl = '/adm/article/';
+	getUrl  =  '/adm/art';
 //监听工具条
   table.on('tool(test)', function(obj){
     var data = obj.data;
     if(obj.event === 'detail'){
+		
 		location.href="/article/"+data.Uid
       layer.msg('ID：'+ data.Id + ' 的查看操作');
     } else if(obj.event === 'del'){
@@ -78,7 +80,9 @@ layui.use('table', function(){
         layer.close(index);
       });
     } else if(obj.event === 'edit'){ //后台编辑去
-		location.href="article/"+data.Uid
+		location.href="/static/editor.md-master/examples/define-plugin.html?getUrl="+getUrl+"&saveUrl="+saveUrl+"&uid="+obj.data.Uid;	
+
+		//location.href="article/"+data.Uid
       //layer.alert('编辑行：<br>'+ JSON.stringify(data))
     }
   });

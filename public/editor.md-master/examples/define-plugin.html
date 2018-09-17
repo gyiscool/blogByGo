@@ -116,10 +116,8 @@
             </div>
              <div class="gy-header "> 
             	<label class="gy-label ">分类:</label> 
-            	<select name="bbxb" class="gy-shortselect">  
+            	<select name="term" class="gy-shortselect">  
 				  <option value="">选择分类</option>  
-				  <option value="0" selected="selected">男</option>  
-				  <option value="1">女</option>  
 				</select>
             </div>
             <div id="test-editormd">                
@@ -141,53 +139,53 @@
 
     var factory = function (exports) {
 
-		var $ = jQuery;           // if using module loader(Require.js/Sea.js).
+        var $ = jQuery;           // if using module loader(Require.js/Sea.js).
 
-		exports.customMethod = function() {
-		    //....
-		};
+        exports.customMethod = function() {
+            //....
+        };
 
-		exports.fn.youPluginName = function() {
-		    /*
-			var _this       = this; // this == the current instance object of Editor.md
-			var lang        = this.lang;
-			var settings    = this.settings;
-			var editor      = this.editor;
-			var cursor      = cm.getCursor();
-			var selection   = cm.getSelection();
+        exports.fn.youPluginName = function() {
+            /*
+            var _this       = this; // this == the current instance object of Editor.md
+            var lang        = this.lang;
+            var settings    = this.settings;
+            var editor      = this.editor;
+            var cursor      = cm.getCursor();
+            var selection   = cm.getSelection();
 
-			cm.focus();
+            cm.focus();
             */
 
-			//....
-		};
+            //....
+        };
 
-	};
+    };
 
-	// CommonJS/Node.js
-	if (typeof require === "function" && typeof exports === "object" && typeof module === "object")
+    // CommonJS/Node.js
+    if (typeof require === "function" && typeof exports === "object" && typeof module === "object")
     {
         module.exports = factory;
     }
-	else if (typeof define === "function")  // AMD/CMD/Sea.js
+    else if (typeof define === "function")  // AMD/CMD/Sea.js
     {
-		if (define.amd) { // for Require.js
+        if (define.amd) { // for Require.js
 
-			define(["editormd"], function(editormd) {
+            define(["editormd"], function(editormd) {
                 factory(editormd);
             });
 
-		} else { // for Sea.js
-			define(function(require) {
+        } else { // for Sea.js
+            define(function(require) {
                 var editormd = require("./../../editormd");
                 factory(editormd);
             });
-		}
-	} 
-	else
-	{
+        }
+    } 
+    else
+    {
         factory(window.editormd);
-	}
+    }
 
 })();
 ```
@@ -214,6 +212,7 @@
     });
 &lt;/script&gt;
 ```
+
 </textarea>
  <textarea class="editormd-html-textarea" name="$id-html-code"></textarea>
         
@@ -235,6 +234,7 @@
         <script src="../editormd.js"></script>
         <script type="text/javascript">
             var testEditor;
+            var getUrl,saveUrl,uid;
             
             editormd.fn.customMethod = function() {
                 console.log("customMethod", this);
@@ -250,7 +250,7 @@
 			    if (url.indexOf("?") != -1) {
 			        var str = url.substr(1);
 			        strs = str.split("&");
-			        console.log(strs)
+			       
 			        for(var i = 0; i < strs.length; i ++) {
 			            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
 			        }
@@ -262,38 +262,64 @@
             
             $(function() {
 
-/*******************/
+/*************************ajax 获取数据************/
                 var params;
 
             	{
 
             		params = GetRequest();
-            		console.log(params);
+            		
             		//alert(params);
             		if(params.getUrl == null || params.saveUrl == null|| params.uid ==null){
-            			//alert("网络错误");
+            			alert("缺少参数");
             		}
 
             		getUrl=params.getUrl;
             		saveUrl=params.saveUrl;
             		uid=params.uid;
-            		
+
+            		getUrl = (getUrl+"/"+uid);
+                    saveUrl = (saveUrl+"/"+uid);
             		$.ajax({ 
             			url: getUrl, 
             			context: document.body, 
-            			data: {id:$("#username").val()},
+                        async:false,
+                        type:'get',
             			success: function(res){
             				$("#gy-load").hide();
             				//映射数据
             				if(res.Code !=0){
-
-								//alert(res.Message);
-
+								alert(res.Message == null ?"网络错误":res.Message);
             				}else{
+                                var select = $("select[name='term']");
+                                term_id = null
 
+                                if(res.Data != null){
+                                    $("input[class='gy-input']").val(res.Data.Title);
+                                    str = (''+(res.Data.Content.MarkDown)+'');
+               
+                                    $("#test-editormd textarea:first-child").val(str);
+                                    term_id = res.Data.Term.Uid
+                                }
+                               
+                                //添加 select 
+                                for(var i in res.Terms){
+                                    str = '';
+                                    if (res.Terms[i].Uid == term_id){
+                                        str = "selected";
+                                    } 
 
-                                console.log(res);
+                                    select.append("<option value='"+res.Terms[i].Uid+"' "+str+">"+res.Terms[i].Title+"</option>");
 
+                                    for(var b in res.Terms[i].Terms){
+                                        str = '';
+                                        if (res.Terms[i].Terms[b].Uid == term_id){
+                                            str = "selected";
+                                        } 
+                                        select.append("<option value='"+res.Terms[i].Terms[b].Uid+"' "+str+">&nbsp;&nbsp;&nbsp;&nbsp;"+res.Terms[i].Terms[b].Title+"</option>");
+                                    }
+                                }
+                                 
             				}
 
 
@@ -303,7 +329,7 @@
 				      }
 				  });
             	}
-
+/*************************ajax保存数据************/
             	//保存接口
                 var  onSubmit;
                 var  saveData;
@@ -321,7 +347,8 @@
                             'editormd-markdown-textarea'  : testEditor.getMarkdown(),
                             'uid'                         : params.uid, 
                             'title'                       : $("input[class='gy-input']").val(),
-                            'is_public':$("#gy-checkbox").is(":checked") ==true ? 0:1
+                            'is_public':$("#gy-checkbox").is(":checked") ==true ? 0:1,
+                            'term'          :$("select[name='term']").val()
                         };
 
 
@@ -329,23 +356,24 @@
                             url: saveUrl, 
                             //context: document.body, 
                             data: saveData,
+                            type:"POST",
                             success: function(res){
+
                                 $("#gy-load").hide();
                                 //映射数据
-                                if(res.Code !=0){
+                                onSubmit = false;
+                                if(res.Code !=1){
 
-                                    //alert(res.Message);
+                                    alert(res.Message);
 
                                 }else{
-
-
+                                    uid = res.Data.Uid;
                                     console.log(res);
-
                                 }
-
                           },
                           error:function(res){
-                            //alert("网络错误");
+                            onSubmit = false;
+                            alert("网络错误");
                           }
 
                         });
@@ -355,10 +383,7 @@
                     //console.log(testEditor.getPreviewedHTML()+"-----------------");
                 });
 
-
-/*******************/
-
-            
+/*************************结束************/
 
        
                 editormd.methodOne = function(){

@@ -97,54 +97,60 @@ func (c *ArticleController) Post() {
 
 	//isAjax := c.Ctx.Input.IsAjax()
 	var post, oldpost models.Article
+	var content models.ArticleContent
 	var mystruct *Ress
-	o := orm.NewOrm()
-	fmt.Println("开始")
 
+	o := orm.NewOrm()
 	adminId := c.GetSession("adminId").(string)
 	postId := c.Ctx.Input.Param(":id") //获取当前文章的id
+	term := c.GetString("term")
 
-	fmt.Println(postId)
-	term_id := c.GetString("Term_id")
-
-	post.Title = c.GetString("Title")
-
-	post.Term = &models.Term{Uid: term_id}
+	//article赋值
+	post.Title = c.GetString("title")
+	post.Term = &models.Term{Uid: term}
 	post.Admin = &models.Admin{Uid: adminId}
 
-	if term_id == "" {
+	//html复制
+	content.Html = c.GetString("editormd-html-textarea")
+	content.MarkDown = c.GetString("editormd-markdown-textarea")
+
+	if term == "" {
 		mystruct = &Ress{Code: 0, Message: "缺少分类", Count: 0}
 	}
 
-	post.Term = &models.Term{Uid: term_id}
+	post.Term = &models.Term{Uid: term}
 
 	if post.Title == "" {
-		mystruct = &Ress{Code: 0, Message: "缺少题目", Count: 0}
-	}
-	if post.Content.Html == "" {
-		mystruct = &Ress{Code: 0, Message: "缺少内容", Count: 0}
+		mystruct = &Ress{Code: 0, Message: "缺少标题", Count: 0}
 	}
 
-	fmt.Println(post)
 	if mystruct != nil {
 
 		c.Data["json"] = mystruct
 		c.ServeJSON()
 		c.StopRun()
+
 	}
 
-	if postId == "" { //新建
+	//新增
+	if postId == "" {
 		timestamp := time.Now().Unix()
 		post.Uid = strconv.FormatInt(timestamp, 10)
 		post.Cdate = time.Now().Format("2006-01-02 15:04:05")
 		o.Insert(&post)
 
+		//插入主表
 		_, postErr := o.Insert(&post)
 
 		if postErr == nil {
-			mystruct = &Ress{Code: 0, Message: "添加失败", Count: 0}
+			//插入从表
+			content.Article = &post
+			o.Insert(&content)
+
+			mystruct = &Ress{Code: 0, Message: "添加成功", Count: 0}
 		} else {
-			mystruct = &Ress{Code: 1, Message: "添加成功", Count: 0}
+
+			mystruct = &Ress{Code: 1, Message: "添加失败", Count: 0}
 		}
 
 	} else { //更新
@@ -153,18 +159,20 @@ func (c *ArticleController) Post() {
 			//post.Uid = postId
 
 			oldpost.Title = c.GetString("Title")
-			oldpost.Content.Html = c.GetString("Content")
 
 			oldpost.Utime = time.Now().Format("2006-01-02 15:04:05")
 
 			_, err := o.Update(&oldpost)
 
 			if err == nil {
+
+				content.Article = &oldpost
+				o.Update(&content)
 				mystruct = &Ress{Code: 1, Message: "更新成功", Count: 0}
 			}
 		} else {
 
-			mystruct = &Ress{Code: 1, Message: "没有该数据", Count: 0}
+			mystruct = &Ress{Code: 1, Message: "没有数据", Count: 0}
 
 		}
 	}

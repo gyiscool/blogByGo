@@ -89,7 +89,6 @@ func (c *CommentController) Post() {
 			newUser.Name = author
 			newUser.Email = email
 			newUser.Cdate = time.Now().Format("2006-01-02 15:04:05")
-			newUser.Profile = &models.Profile{Id: 0}
 
 			Uid, _ := o.Insert(&newUser)
 

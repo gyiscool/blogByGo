@@ -46,9 +46,11 @@ func (c *ArtController) Get() {
 
 	} else {
 
-		post := models.Post{Uid: postId}
+		post := models.Article{Uid: postId}
 
-		err := o.QueryTable("post").Filter("uid", postId).RelatedSel().One(&post) //
+		err := o.QueryTable("article").Filter("uid", postId).RelatedSel().One(&post) //
+
+		o.LoadRelated(&post, "Content")
 
 		if err == nil {
 

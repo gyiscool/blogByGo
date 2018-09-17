@@ -10,10 +10,9 @@ import (
 
 func init() {
 	beego.Router("/", &controllers.MainController{})
-	beego.Router("/articles", &controllers.MainController{})
+	beego.Router("/term/:term_id/articles", &controllers.MainController{})
 	beego.Router("/comment", &controllers.CommentController{})
 	beego.Router("/article/?:id", &controllers.ArticleController{})
-	beego.Router("/term/:term/articles", &controllers.ArticleController{})
 	beego.Router("/login", &controllers.LoginController{})
 
 	/**后台管理模块

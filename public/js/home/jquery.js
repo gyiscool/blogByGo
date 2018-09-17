@@ -1083,7 +1083,8 @@ function() {
                 }
             })
         }
-        window.prettyPrint && window.prettyPrint();
+        //影响代码展示
+        //window.prettyPrint && window.prettyPrint();
         a(".article-tags a, .post-tags a").each(function() {
             a(this).tooltip({
                 container: "body",

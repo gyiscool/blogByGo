@@ -6,15 +6,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 	<title>GY的个人博客</title>
 <script>
-window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0, roll: [0,0]}
+window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, roll: [0,0]}
 </script>
 	<link rel="dns-prefetch" href="http://libs.baidu.com/">
 	<link rel="dns-prefetch" href="http://s.w.org/">
-	<link rel="stylesheet" id="style-css" href="https://yusi123.com/wp-content/themes/yusi/share.css" type="text/css" media="all">
 	<link rel="stylesheet" id="style-css" href="/static/css/style/style.css" type="text/css" media="all">
 	<link rel="stylesheet" id="style-cssa" href="/static/css/home/style.css" type="text/css" media="all">
-	
-    <link rel="stylesheet" href="/static\editor.md-master\css\editormd.css" />
+    <link rel="stylesheet" href="/static\editor.md-master\css\editormd.css" />   
+
 	<script type="text/javascript" src="/static/js/home/jquery.min.js"></script>
 	<script type="text/javascript" src="/static/js/home/jquery.js"></script>
 	<script src="/static/js/home/wp-emoji-release.min.js" type="text/javascript" defer=""></script>
@@ -22,8 +21,23 @@ window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0
 	<script type="text/javascript" src="/static/js/home/page.js"></script>
 	<style>
 	.popover-content a {
-     color: white; 
+     	color: white; 
 	}
+	.prettyprint.linenums, pre.prettyprint.linenums  {
+		box-shadow: inset 0 0 0 #eee, inset 0 0 0 #33b796;
+		
+	}
+	 pre.prettyprint.linenums ol{
+		margin: 0 0 0 0px;
+	}
+	.article-content li:before {
+		    
+		    content: "";
+		   margin: 0; 
+     		padding: 0; 
+     		width: 0px
+ 	}
+
 	</style>
 	<meta name="description" content="">
 </head>
@@ -68,7 +82,7 @@ window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0
 					</div>
 					<div class="search-expand" style="display: none;">
 						<div class="search-expand-inner">
-							<form method="get" class="searchform themeform" onsubmit="location.href='/articles?title=' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="https://yusi123.com/">
+							<form method="get" class="searchform themeform" onsubmit="location.href='/articles?title=' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="#">
 								<div> 
 									<input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='search...';" onfocus="if(this.value=='search...')this.value='';" value="search...">
 								</div>
@@ -92,11 +106,11 @@ window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0
 		<div class="content">
   <header class="article-header">
     <h1 class="article-title">
-      <a href="">{{.article.Title}}</a></h1>
+      <a href="">{{.article.Title}}1</a></h1>
     <div class="meta">
       <span id="mute-category" class="muted">
         <i class="fa fa-list-alt"></i>
-        <a href="https://yusi123.com/wordpress/theme">{{.article.Title}}</a></span>
+        <a href="https://www.gyiscool.com">{{.article.Title}}1</a></span>
       <span class="muted">
         <i class="fa fa-user"></i>{{.article.Admin.Nick_name}}</span>
       <time class="muted">
@@ -105,7 +119,7 @@ window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0
         <i class="fa fa-eye"></i>17729℃</span>
       <span class="muted">
         <i class="fa fa-comments-o"></i>
-        <a href="https://yusi123.com/3502.html#comments">{{.article.Comments}}评论</a></span>
+        <a href="https://gyiscool.com">{{.article.Comments}}评论</a></span>
     </div>
   </header>
   <div class="banner banner-post">
@@ -113,7 +127,10 @@ window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0
     
   </div>
   <article class="article-content">
-	{{str2html .article.Content}}
+  	<div class="markdown-body editormd-preview-container editormd-preview-active" previewcontainer="true" style="padding:0;">
+  		{{str2html  .article.Content.Html}}
+  	</div>
+	
     <div class="article-social">
       <a href="javascript:;" data-action="ding" data-id="{{.preArticle.Uid}}" id="Addlike" class="action" data-original-title="" title="">
         <i class="fa fa-heart-o"></i>喜欢 (
@@ -141,7 +158,7 @@ window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0
       <a href="" data-original-title="" title="">GY的个人博客</a>»
       <a href="" data-original-title="" title="">{{.article.Title}}</a></p>
     <div class="open-message">
-      <i class="fa fa-bullhorn"></i>如果你觉得这篇文章或者我分享的主题对你有帮助，请支持我继续更新网站和主题 ！
+      <i class="fa fa-bullhorn"></i>如果你觉得这篇文章或者我分享的主题对你有帮助，请支持我继续更新分享！
       <a style="float:right;text-indent: 0;" href="javascript:;" title="" target="_blank" data-original-title="捐赠本站">捐赠本站</a></div>
   </article>
 
@@ -170,7 +187,7 @@ window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0
     <form action="" method="post" id="commentform">
       <div class="comt-title">
         <div class="comt-avatar pull-left">
-          <img alt="" src="https://yusi123.com/avatar/54*.jpg" srcset="https://yusi123.com/avatar/108*.jpg" class="avatar avatar-54 photo" height="54" width="54"></div>
+          <img alt="" src="http://gyiscool.com" srcset="http://gyiscool.com" class="avatar avatar-54 photo" height="54" width="54"></div>
         <div class="comt-author pull-left">发表我的评论</div>
         <a id="cancel-comment-reply-link" class="pull-right" href="javascript:;">取消评论</a></div>
       <div class="comt">
@@ -215,7 +232,7 @@ window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0
 		{{range $index, $elem := .comments}}
 			<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14599">
 		        <div class="c-avatar">
-		          <img alt="" data-original="https://yusi123.com/avatar/54*f6f180451b1a1a8d1bc3d03a75ac011d.jpg" srcset="https://yusi123.com/avatar/108*f6f180451b1a1a8d1bc3d03a75ac011d.jpg" class="avatar avatar-54 photo" height="54" width="54" src="https://yusi123.com/avatar/54*f6f180451b1a1a8d1bc3d03a75ac011d.jpg" style="display: block;">
+		          <img alt="" data-original="https://www.gyiscool.com" class="avatar avatar-54 photo" height="54" width="54" src="https://gyiscool.com" style="display: block;">
 		          <div class="c-main" id="div-comment-14599">{{$elem.Content}}
 		            <div class="c-meta">
 		              <span class="c-author">
@@ -227,7 +244,7 @@ window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0
 		        <ul class="children">
 		          <li class="comment even depth-2" id="comment-18350">
 		            <div class="c-avatar">
-		              <img alt="" data-original="https://yusi123.com/avatar/54*59ae9953bb2545d53b92ba19faa84ee9.jpg" srcset="https://yusi123.com/avatar/108*59ae9953bb2545d53b92ba19faa84ee9.jpg" class="avatar avatar-54 photo" height="54" width="54" src="https://yusi123.com/avatar/54*59ae9953bb2545d53b92ba19faa84ee9.jpg" style="display: block;">
+		              <img alt="" data-original="https://gyiscool.com" srcset="https://gyiscool.com" class="avatar avatar-54 photo" height="54" width="54" src="https://gyiscool.com" style="display: block;">
 		              <div class="c-main" id="div-comment-18350">{{$elem.To_comment.Content}}
 		                <div class="c-meta">
 		                  <span class="c-author">{{$elem.To_comment.From_user.Name}}</span>{{$elem.To_comment.Cdate}}
@@ -271,17 +288,12 @@ window._deel = {name: '清研车联',url: '8', ajaxpager: '/ss/ss', commenton: 0
 			  <ul>
 			{{range $index, $elem := .newArticles}}
 			    <li>
-			        <a href="/article/{{$elem.Uid}}" title="{{$elem.Title}}">
-					{{if $elem.Head_img}}
-						<span class="thumbnail">
-			          		<img src="{{$elem.Head_img}}" alt="{{$elem.Title}}">
-						</span>
-					{{end}}
-			        <span class="text">{{$elem.Title}}</span>
+			      <a href="/article/{{$elem.Uid}}" title="{{$elem.Title}}" style='padding-left:0px;'>
+			        <span class="text" style="height:30px;margin-left:10px">{{$elem.Title}}</span>
 			        <span class="muted">{{$elem.Cdate}}</span>
 			        <span class="muted" style="float: right;">{{$elem.Comments}}评论</span></a>
 			    </li>
-				{{end}}
+			{{end}}			
 			  </ul>
 			</div>
 

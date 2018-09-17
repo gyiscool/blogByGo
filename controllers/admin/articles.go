@@ -50,9 +50,9 @@ func (c *ArticlesController) Get() {
 		pagestart = (page - 1) * pagesize
 
 		postModel := o.QueryTable("article")
-		nums, _ := postModel.Filter("del_flag", 0).RelatedSel().OrderBy("-utime").Count()
+		nums, _ := postModel.Filter("del_flag", 0).OrderBy("-utime").Count()
 
-		_, _ = postModel.Filter("del_flag", 0).OrderBy("-utime").Limit(pagesize, pagestart).All(&articles) //最新修改
+		_, _ = postModel.Filter("del_flag", 0).RelatedSel("term").OrderBy("-utime").Limit(pagesize, pagestart).All(&articles) //最新修改
 
 		mystruct := &Ress{Code: 0, Message: "ok", Count: int(nums), Data: articles}
 		c.Data["json"] = mystruct
@@ -64,7 +64,6 @@ func (c *ArticlesController) Get() {
 		c.TplName = "admin/articles.tpl"
 
 	}
-
 	//返回html
 
 }
