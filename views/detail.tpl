@@ -30,6 +30,11 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 	 pre.prettyprint.linenums ol{
 		margin: 0 0 0 0px;
 	}
+	.linenums li{
+
+
+	    height: 22px;
+	}
 	.article-content li:before {
 		    
 		    content: "";
@@ -38,6 +43,25 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
      		width: 0px
  	}
 
+ 	ul, menu, dir {
+
+ 	    list-style-type: disc;
+ 	}
+ 	ul ul, ol ul {
+    list-style-type: circle;
+	}
+
+	.article-contentv2 {
+	    font-size: 15px;
+	    text-indent: 0px;
+	    line-height: 26px;
+
+	    word-break: break-all;
+	    word-wrap: break-word;
+	    position: relative;
+	    padding: 10px 20px 20px 20px;
+	    background-color: #fff;
+	}
 	</style>
 	<meta name="description" content="">
 </head>
@@ -126,7 +150,7 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 
     
   </div>
-  <article class="article-content">
+  <article class="article-contentv2">
   	<div class="markdown-body editormd-preview-container editormd-preview-active" previewcontainer="true" style="padding:0;">
   		{{str2html  .article.Content.Html}}
   	</div>
