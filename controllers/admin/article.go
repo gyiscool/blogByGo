@@ -63,20 +63,20 @@ func (c *ArticleController) Get() {
 
 func (c *ArticleController) Delete() {
 	var mystruct *Ress
-	var newpost models.Post
+	var newArticle models.Article
 	postId := c.Ctx.Input.Param(":id") //获取当前文章的id
 	o := orm.NewOrm()
 
-	newpost.Uid = postId
+	newArticle.Uid = postId
 	if postId == "" { //新建
 		mystruct = &Ress{Code: 1, Message: "缺少参数", Count: 0}
 		c.Data["json"] = mystruct
 		c.ServeJSON()
 		c.StopRun()
 	}
-	if o.Read(&newpost) == nil {
-		newpost.Del_flag = 1
-		_, err := o.Update(&newpost)
+	if o.Read(&newArticle) == nil {
+		newArticle.Del_flag = 1
+		_, err := o.Update(&newArticle)
 		if err == nil {
 
 			mystruct = &Ress{Code: 1, Message: "删除成功", Count: 0}
@@ -137,7 +137,6 @@ func (c *ArticleController) Post() {
 		timestamp := time.Now().Unix()
 		post.Uid = strconv.FormatInt(timestamp, 10)
 		post.Cdate = time.Now().Format("2006-01-02 15:04:05")
-		o.Insert(&post)
 
 		//插入主表
 		_, postErr := o.Insert(&post)
@@ -147,7 +146,8 @@ func (c *ArticleController) Post() {
 			content.Article = &post
 			o.Insert(&content)
 
-			mystruct = &Ress{Code: 0, Message: "添加成功", Count: 0}
+			mystruct = &Ress{Code: 0, Message: "添加成功", Data: post, Count: 0}
+
 		} else {
 
 			mystruct = &Ress{Code: 1, Message: "添加失败", Count: 0}
@@ -158,7 +158,7 @@ func (c *ArticleController) Post() {
 		if o.Read(&oldpost) == nil {
 			//post.Uid = postId
 
-			oldpost.Title = c.GetString("Title")
+			oldpost.Title = c.GetString("title")
 
 			oldpost.Utime = time.Now().Format("2006-01-02 15:04:05")
 

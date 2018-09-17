@@ -44,11 +44,14 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
  	}
 
  	ul, menu, dir {
-
  	    list-style-type: disc;
  	}
  	ul ul, ol ul {
     list-style-type: circle;
+	}
+	.d_postlist ul{
+		 list-style: none;
+
 	}
 
 	.article-contentv2 {
