@@ -30,15 +30,14 @@ func (c *ArticleController) Get() {
 		c.TplName = "admin/article.tpl"
 	} else {
 
-		post := models.Post{Uid: postId}
+		article := models.Article{Uid: postId}
 
-		_ = o.QueryTable("post").Filter("uid", postId).RelatedSel().One(&post) //
+		_ = o.QueryTable("article").Filter("uid", postId).RelatedSel().One(&article) //
+		article.Term = &models.Term{Uid: "1"}
+		c.Data["article"] = article
+		o.LoadRelated(&article, "Content")
 
-		fmt.Print(post.Term.Uid)
-		fmt.Print(post.Term)
-		c.Data["article"] = post
-
-		fmt.Printf("参数是%+v\n\n\n", postId)
+		fmt.Printf("参数是%+v\n\n\n", article.Content)
 
 	}
 
@@ -52,8 +51,6 @@ func (c *ArticleController) Get() {
 	sql := qb.String()
 
 	o.Raw(sql, 0).QueryRows(&termss)
-
-	fmt.Printf("打印主表全部%+v\n\n\n", termss[0])
 
 	models.WithProfil(termss, "Uid")
 
@@ -99,7 +96,7 @@ func (c *ArticleController) Delete() {
 func (c *ArticleController) Post() {
 
 	//isAjax := c.Ctx.Input.IsAjax()
-	var post, oldpost models.Post
+	var post, oldpost models.Article
 	var mystruct *Ress
 	o := orm.NewOrm()
 	fmt.Println("开始")
@@ -111,10 +108,6 @@ func (c *ArticleController) Post() {
 	term_id := c.GetString("Term_id")
 
 	post.Title = c.GetString("Title")
-	post.Content = c.GetString("Content")
-	post.Brief = c.GetString("Brief")
-	post.Content = c.GetString("Content")
-	post.Head_img = c.GetString("Headimg")
 
 	post.Term = &models.Term{Uid: term_id}
 	post.Admin = &models.Admin{Uid: adminId}
@@ -128,18 +121,10 @@ func (c *ArticleController) Post() {
 	if post.Title == "" {
 		mystruct = &Ress{Code: 0, Message: "缺少题目", Count: 0}
 	}
-	if post.Content == "" {
+	if post.Content.Html == "" {
 		mystruct = &Ress{Code: 0, Message: "缺少内容", Count: 0}
 	}
-	if post.Brief == "" {
-		mystruct = &Ress{Code: 0, Message: "缺少简介", Count: 0}
-	}
 
-	if post.Head_img == "" {
-		//	mystruct = &Ress{Code: 0, Message: "缺少概略图", Count: 0}
-	}
-
-	fmt.Println("判断")
 	fmt.Println(post)
 	if mystruct != nil {
 
@@ -168,10 +153,8 @@ func (c *ArticleController) Post() {
 			//post.Uid = postId
 
 			oldpost.Title = c.GetString("Title")
-			oldpost.Content = c.GetString("Content")
-			oldpost.Brief = c.GetString("Brief")
-			oldpost.Content = c.GetString("Content")
-			oldpost.Head_img = c.GetString("Headimg")
+			oldpost.Content.Html = c.GetString("Content")
+
 			oldpost.Utime = time.Now().Format("2006-01-02 15:04:05")
 
 			_, err := o.Update(&oldpost)

@@ -39,6 +39,8 @@ type Ress_v2 struct {
 func (c *ArticlesController) Get() {
 
 	var pagestart int
+	var articles []models.Article
+
 	isAjax := c.Ctx.Input.IsAjax()
 
 	if isAjax == true { //ajax 返回
@@ -47,12 +49,12 @@ func (c *ArticlesController) Get() {
 		pagesize, _ := c.GetInt("limit") //当前页码
 		pagestart = (page - 1) * pagesize
 
-		var posts []models.Post
-		postModel := o.QueryTable("post")
+		postModel := o.QueryTable("article")
 		nums, _ := postModel.Filter("del_flag", 0).RelatedSel().OrderBy("-utime").Count()
-		_, _ = postModel.Filter("del_flag", 0).RelatedSel().OrderBy("-utime").Limit(pagesize, pagestart).All(&posts) //最新修改
 
-		mystruct := &Ress{Code: 0, Message: "记录成功", Count: int(nums), Data: posts}
+		_, _ = postModel.Filter("del_flag", 0).OrderBy("-utime").Limit(pagesize, pagestart).All(&articles) //最新修改
+
+		mystruct := &Ress{Code: 0, Message: "ok", Count: int(nums), Data: articles}
 		c.Data["json"] = mystruct
 
 		c.ServeJSON()
