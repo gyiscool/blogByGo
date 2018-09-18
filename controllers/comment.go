@@ -5,10 +5,13 @@ import (
 	"gojob/models"
 	_ "gojob/models"
 	_ "reflect"
+	"strconv"
 	_ "time"
 
 	"regexp"
 	"time"
+
+	"math/rand"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
@@ -93,6 +96,7 @@ func (c *CommentController) Post() {
 			user.Name = author
 			user.Email = email
 			user.Cdate = time.Now().Format("2006-01-02 15:04:05")
+			user.HeadImg = "/static/img/headimg/" + strconv.Itoa(rand.Intn(15)) + ".jpg"
 
 			id, _ := o.Insert(&user)
 			fmt.Println("查看")
