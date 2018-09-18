@@ -84,7 +84,7 @@ window._deel = {name: '个人博客',url: '8', ajaxpager: '/ss/ss', commenton: 0
 
 	<section class="container">
 		<div class="speedbar">
-			<div class="toptip"><strong class="text-success"><i class="fa fa-volume-up"></i> </strong> </div>
+			<div class="toptip"><strong class="text-success"><i class="fa fa-volume-up"></i> 快上车，来不及解释了</strong> </div>
 		</div>
 
 		<!--列表页-->
@@ -102,7 +102,10 @@ window._deel = {name: '个人博客',url: '8', ajaxpager: '/ss/ss', commenton: 0
 						</div>
 						<!--<span class="note"> {{$elem.Brief}}</span>-->
 						<p class="auth-span">
-							<span class="muted"><i class="fa fa-user"></i> <a href="javascript:;">{{$elem.Admin.Nick_name}}</a></span>
+							<span class="muted">
+								<i class="fa fa-user"></i> 
+								<a href="javascript:;">{{if $elem.Admin}}{{$elem.Admin.Nick_name}}{{end}}</a>
+							</span>
 							<span class="muted"><i class="fa fa-clock-o"></i> {{$elem.Cdate}}</span>
 							<span class="muted"><i class="fa fa-eye"></i> {{$elem.Views}}℃</span>
 							<span class="muted">
@@ -110,7 +113,7 @@ window._deel = {name: '个人博客',url: '8', ajaxpager: '/ss/ss', commenton: 0
 								<a target="_blank" href="/article/{{$elem.Uid}}#comments">{{$elem.Comments}}评论</a>
 							</span>
 							<span class="muted">
-								<a href="javascript:;" data-action="ding" data-id="1002" id="Addlike" class="action"><i class="fa fa-heart-o"></i><span class="count">{{$elem.Zans}}</span>喜欢</a>
+								<a href="javascript:;" data-action="like" data-id="{{$elem.Uid}}" id="Addlike" class="action"><i class="fa fa-heart-o"></i><span class="count">{{$elem.Zans}}</span>喜欢</a>
 							</span>
 						</p>
 					</article>

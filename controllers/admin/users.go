@@ -1,7 +1,6 @@
 package admin
 
 import (
-	"fmt"
 	"gojob/models"
 	_ "reflect"
 	_ "time"
@@ -18,8 +17,6 @@ func (c *UsersController) Get() {
 
 	var pagestart int
 	isAjax := c.Ctx.Input.IsAjax()
-	fmt.Println("开始记录\n\n\n\n")
-	fmt.Println(c.Ctx.Input.IP())
 	if isAjax == true { //ajax 返回
 		o := orm.NewOrm()
 		page, _ := c.GetInt("page")      //当前页码

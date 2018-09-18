@@ -13,7 +13,7 @@ func init() {
 	beego.Router("/term/:term_id/articles", &controllers.MainController{})
 	beego.Router("/comment", &controllers.CommentController{})
 	beego.Router("/article/?:id", &controllers.ArticleController{})
-	beego.Router("/login", &controllers.LoginController{})
+	beego.Router("/like/article/:id", &controllers.LikeController{})
 
 	/**后台管理模块
 	 */

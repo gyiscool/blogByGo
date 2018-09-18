@@ -28,7 +28,7 @@ func (pagination *Pagination) GetPaginationHtml() string {
 	}
 	//上一页
 	if pagination.NowPage > 1 {
-		str += "<li class='prev-page'><a href='" + url + "&page=" + (prePage) + "'>上一页</a></li>"
+		str += "<li class='prev-page'><a href='" + url + "page=" + (prePage) + "'>上一页</a></li>"
 	}
 
 	if end >= 9 {
@@ -39,7 +39,7 @@ func (pagination *Pagination) GetPaginationHtml() string {
 
 			fmt.Println("7")
 
-			str += "<li><a href='" + pagination.Url + "?page=1'>1</a> </li>"
+			str += "<li><a href='" + pagination.Url + "page=1'>1</a> </li>"
 
 			str += "<li><span> ... </span> </li>"
 			start = nowpage - 3
@@ -60,9 +60,9 @@ func (pagination *Pagination) GetPaginationHtml() string {
 
 	for i := start; i <= end; i++ {
 		if i == nowpage {
-			str += "<li class='active'><a href='" + url + "&page=" + strconv.Itoa(i) + "'>" + strconv.Itoa(i) + "</a></li>"
+			str += "<li class='active'><a href='" + url + "page=" + strconv.Itoa(i) + "'>" + strconv.Itoa(i) + "</a></li>"
 		} else {
-			str += "<li><a href='" + url + "&page=" + strconv.Itoa(i) + "'>" + strconv.Itoa(i) + "</a></li>"
+			str += "<li><a href='" + url + "page=" + strconv.Itoa(i) + "'>" + strconv.Itoa(i) + "</a></li>"
 		}
 	}
 
@@ -73,7 +73,7 @@ func (pagination *Pagination) GetPaginationHtml() string {
 
 			str += "<li><span>...</span></li>"
 
-			str += "<li><a href='" + url + "&page=" + strconv.Itoa(pagination.TotalPage) + "'>" + strconv.Itoa(pagination.TotalPage) + "</a></li>"
+			str += "<li><a href='" + url + "page=" + strconv.Itoa(pagination.TotalPage) + "'>" + strconv.Itoa(pagination.TotalPage) + "</a></li>"
 
 			end = nowpage + 5
 
@@ -82,7 +82,7 @@ func (pagination *Pagination) GetPaginationHtml() string {
 	}
 
 	if nowpage < pagination.TotalPage { //下一页
-		str += "<li class='next-page'><a href='" + url + "&page=" + (nextPage) + "'>下一页</a></li>"
+		str += "<li class='next-page'><a href='" + url + "page=" + (nextPage) + "'>下一页</a></li>"
 	}
 
 	return str

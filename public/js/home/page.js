@@ -33,6 +33,7 @@ function set_pagination(allpage, nowpage, pagesize,url) {
 
 }
 
+//评论分页
 function set_pagination_v2(allpage, nowpage, pagesize,url){
 	var str = "";
 	var start = 1;
@@ -41,13 +42,18 @@ function set_pagination_v2(allpage, nowpage, pagesize,url){
 		str += "<a class='prev page-numbers' href='"+url+"?page="+(nowpage-1)+"#comments'>«</a>";	
 	}
 	
-	if((nowpage-1) >= 3){
-		(str += "<span class='page-numbers'>...</span>");
-		start = nowpage-2;
-	}else if(allpage >=5){//和
-		end=5;
-	}else if((allpage-nowpage) >= 3){
-		end = nowpage+2;
+
+	if( allpage >= 9){
+
+		if(nowpage >=6){
+			str += "<a class='page-numbers' href='"+url+"?page=1#comments'>1</a>"
+			str += "<span class='page-numbers'>...</span>"
+			start = nowpage-3
+		}
+
+		if((end-nowpage) >=5){
+			end =nowpage+3
+		}
 	}
 	
 	for (var i=start;i<=end;i++)
@@ -59,14 +65,21 @@ function set_pagination_v2(allpage, nowpage, pagesize,url){
 		}
 		
 	}
+
+	if( allpage >= 9){
+		if((allpage-nowpage) >=5){
+			str += "<span class='page-numbers'>...</span>"
+			str += "<a class='page-numbers' href='"+url+"?page="+allpage+"#comments'>"+allpage+"</a>"
+		}
+
+	}
 	
 	if(nowpage < allpage){//下一页
-		((allpage-nowpage) >= 3) && (str += "<span class='page-numbers'> ... </span>");
+		
 		str += "<a class='prev page-numbers' href='"+url+"?page="+(nowpage+1)+"#comments'>»</a>";
 	}
 	
 
-console.log(str);
 	$(".commentnav").html(str);
 	
 

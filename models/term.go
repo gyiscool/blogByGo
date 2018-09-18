@@ -13,9 +13,9 @@ type Term struct {
 	Tree  int
 	Cdate string
 	Pid   string
-	Terms []*Term `orm:"reverse(many)"`
-	Term  *Term   `orm:"rel(fk)"` //关联个毛线
-	Posts []*Post `orm:"reverse(many)"`
+	Terms []*Term    `orm:"reverse(many)"`
+	Term  *Term      `orm:"rel(fk)"` //关联个毛线
+	Posts []*Article `orm:"reverse(many)"`
 }
 
 //list的关联查询

@@ -29,10 +29,9 @@ type commetForm struct {
 func (c *CommentController) Post() {
 
 	var user models.User
-	var newUser models.User
 
 	var comment models.Comment
-	var post models.Post
+	var post models.Article
 	o := orm.NewOrm()
 	content := c.GetString("comment")        //获取内容
 	postId := c.GetString("comment_post_ID") //当前页码
@@ -42,16 +41,16 @@ func (c *CommentController) Post() {
 	toId, commentError := c.GetInt("comment_parent") //获取的id
 
 	//查找是否有 对应的文章
-	_ = o.QueryTable("post").Filter("uid", postId).RelatedSel().One(&post) //
+	_ = o.QueryTable("article").Filter("uid", postId).RelatedSel().One(&post) //
 
 	if content == "" {
-		mystruct := &models.Res{Code: 0, Message: "缺少内容", Data: 0}
+		mystruct := &models.SampRes{Success: 0, Message: "还没有填写回复内容呢^_^", Data: 0}
 		c.Data["json"] = mystruct
 		c.ServeJSON()
 	}
 
 	if postId == "" {
-		mystruct := &models.Res{Code: 0, Message: "缺少目标", Data: 0}
+		mystruct := &models.SampRes{Success: 0, Message: "文章参数错误", Data: 0}
 		c.Data["json"] = mystruct
 		c.ServeJSON()
 	}
@@ -59,43 +58,49 @@ func (c *CommentController) Post() {
 	//检查是否有session
 	v := c.GetSession("uid")
 
-	//写入存储
 	/**
 	  1-用户登陆状态记录
 	*/
 	if v == nil {
 		//没有email 和 author 报错
 		if email == "" {
-			mystruct := &models.Res{Code: 0, Message: "缺少邮箱", Data: 0}
+			mystruct := &models.SampRes{Success: 0, Message: "你忘记填邮箱了吧^.^", Data: 0}
 			c.Data["json"] = mystruct
 			c.ServeJSON()
+			c.StopRun()
+		}
+
+		if author == "" {
+			mystruct := &models.SampRes{Success: 0, Message: "你忘记填昵称了吧^.^", Data: 0}
+			c.Data["json"] = mystruct
+			c.ServeJSON()
+			c.StopRun()
 		}
 
 		reg := regexp.MustCompile("^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$")
 		if !reg.MatchString(email) {
-			mystruct := &models.Res{Code: 0, Message: "邮箱不合法", Data: 0}
+			mystruct := &models.SampRes{Success: 0, Message: "再检查一遍是否是合法邮箱哦@……@", Data: 0}
 			c.Data["json"] = mystruct
 			c.ServeJSON()
+			c.StopRun()
 		}
 
 		//是否有过这个人 有写入session 没有增加记录
+		error := o.QueryTable("user").Filter("email", email).One(&user)
 
-		_ = o.QueryTable("user").Filter("email", email).One(&user)
+		if error == orm.ErrNoRows { //新增
 
-		fmt.Printf("准备插入数据%+v\n\n\n", c.Data["Email"])
-		fmt.Printf("准备插入数据%+v\n\n\n", user)
-		if user.Id == 0 { //新增
+			user.Name = author
+			user.Email = email
+			user.Cdate = time.Now().Format("2006-01-02 15:04:05")
 
-			newUser.Name = author
-			newUser.Email = email
-			newUser.Cdate = time.Now().Format("2006-01-02 15:04:05")
+			id, _ := o.Insert(&user)
+			fmt.Println("查看")
+			fmt.Println(user)
+			user.Id = int(id)
 
-			Uid, _ := o.Insert(&newUser)
+			c.SetSession("uid", user.Id)
 
-			c.SetSession("uid", newUser.Id)
-
-			fmt.Printf("写入数据session%+v\n", newUser)
-			fmt.Printf("写入数据session%+v\n", Uid)
 		} else { //有数据 记录数据
 			if author != "" && user.Name != author { //更改数据
 				user.Name = author
@@ -103,16 +108,14 @@ func (c *CommentController) Post() {
 			}
 
 			c.SetSession("uid", user.Id)
-			fmt.Printf("产看123session%+v\n", user.Id)
 		}
 
 	} else { //存在session
 
 		user.Id = v.(int)
 
-		_ = o.Read(&user)
+		o.Read(&user)
 
-		fmt.Printf("参数是session%+v\n\n\n", user)
 	}
 
 	/**
@@ -129,9 +132,8 @@ func (c *CommentController) Post() {
 	comment.From_user = &user
 	o.Insert(&comment)
 
-	mystruct := &models.Res{Code: 0, Message: "记录成功", Data: nil}
+	mystruct := &models.SampRes{Success: 1, Message: "记录成功", Data: user}
 	c.Data["json"] = mystruct
-	fmt.Printf("参数是%+v\n\n\n", c.Data["Email"])
 
 	c.ServeJSON()
 }

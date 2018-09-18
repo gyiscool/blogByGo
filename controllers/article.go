@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	"gojob/models"
+	"gojob/models/common"
 	_ "reflect"
 	_ "time"
 
@@ -20,15 +21,16 @@ func (c *ArticleController) Get() {
 	var preArticle models.Article
 	var nextArticle models.Article
 	var comments []models.Comment
+	var modelPage *common.ModelPage
+	var pageOffset int
+	var user models.User
 
 	page, _ := c.GetInt("page") //当前页码
-	pagesize := 1               //每页数量
+	pagesize := 5               //每页数量
 	pagenum := 0                //最后一页数量
-	pagestart := 0              //偏移量
 
 	postId := c.Ctx.Input.Param(":id")
 
-	fmt.Printf("参数是%+v\n\n\n", c.Ctx.Input.Param(":id"))
 	//构建标签
 	var termss []models.Term
 	qb, _ := orm.NewQueryBuilder("mysql")
@@ -48,15 +50,18 @@ func (c *ArticleController) Get() {
 	c.Data["terms"] = termss
 
 	_ = o.QueryTable("article").Filter("uid", postId).RelatedSel("Admin", "Term").One(&article) //
+	article.Views += 1
+	o.Update(&article)
 
-	fmt.Println("载入")
 	o.LoadRelated(&article, "Content")
 
+	//上一个，下一个
 	_ = o.QueryTable("article").Filter("iid__lt", article.Iid).RelatedSel().OrderBy("-iid").Limit(1).One(&preArticle) //上一个
 	_ = o.QueryTable("article").Filter("iid__gt", article.Iid).RelatedSel().OrderBy("iid").Limit(1).One(&nextArticle) //下一个
 
+	//右侧
 	var newArticles []models.Article
-	num, _ := o.QueryTable("article").RelatedSel().OrderBy("-iid").Limit(6).All(&newArticles)
+	o.QueryTable("article").RelatedSel().OrderBy("-iid").Limit(6).All(&newArticles)
 
 	//查看评论分页
 	commetnModel := o.QueryTable("comment")
@@ -66,26 +71,27 @@ func (c *ArticleController) Get() {
 	}
 
 	nums, _ := commetnModel.RelatedSel().Count()
-	if page != 0 || page > 0 {
-		pagestart = (page - 1) * pagesize
-	} else {
-		page = 1
+
+	modelPage = &common.ModelPage{TotalNum: int(nums), SearchPage: page, Pagesize: pagesize}
+	pageOffset = modelPage.GetOffset()
+	pagenum = modelPage.GetTotalPage()
+
+	_, _ = commetnModel.RelatedSel().OrderBy("-iid").Limit(pagesize, pageOffset).All(&comments) //最新修改
+
+	//查找个人信息
+	//检查是否有session
+	v := c.GetSession("uid")
+	if v != nil {
+		user.Id = v.(int)
+
+		o.Read(&user)
+
+		c.Data["user"] = user
+
 	}
 
-	//pageUrl = pageUrl + "&page=" + string(page)
-
-	fmt.Printf("当前页码%+v\n\n\n", page)
-	pagenum = int(int(nums) / int(pagesize))
-
-	if int(pagesize*pagenum) > int(nums) {
-		pagenum++
-	}
-
-	_, _ = commetnModel.RelatedSel().OrderBy("-iid").Limit(pagesize, pagestart).All(&comments) //最新修改
-	fmt.Printf("评论%+v\n\n\n", comments)
-
-	fmt.Printf("查看时间%+v\n\n\n", num)
-	fmt.Printf("查看时间%+v\n\n\n", nums)
+	fmt.Println("是个啥")
+	fmt.Println(user)
 	c.Data["article"] = article
 	c.Data["preArticle"] = preArticle
 	c.Data["nextArticle"] = nextArticle

@@ -20,6 +20,9 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 	<script type="text/javascript" src="/static/js/home/wp-embed.min.js"></script>
 	<script type="text/javascript" src="/static/js/home/page.js"></script>
 	<style>
+	.comt-mailme {
+		display: block;
+	}
 	.popover-content a {
      	color: white; 
 	}
@@ -65,6 +68,9 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 	    padding: 10px 20px 20px 20px;
 	    background-color: #fff;
 	}
+	.children{
+		list-style: none;
+	}
 	</style>
 	<meta name="description" content="">
 </head>
@@ -89,12 +95,12 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 				</li>
 				{{range $index, $elem := .terms}}
 					<li id="menu-item-3307" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3307">
-						<a href="/articles?term={{$elem.Uid}}">{{$elem.Title}}</a>
+						<a href="/term/{{$elem.Uid}}/articles">{{$elem.Title}}</a>
 						{{if .Terms}}
 							<ul class="sub-menu">
 								{{range $index1, $elem1 := .Terms}}
 									<li id="menu-item-3301" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3301">
-										<a href="/articles?term={{$elem1.Uid}}">{{$elem1.Title}}</a>
+										<a href="/term/{{$elem1.Uid}}/articles">{{$elem1.Title}}</a>
 									</li>
 								{{end}}
 							</ul>
@@ -127,19 +133,19 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 
 	<section class="container">
 		<div class="speedbar">
-			<div class="toptip"><strong class="text-success"><i class="fa fa-volume-up"></i> </strong> </div>
+			<div class="toptip"><strong class="text-success"><i class="fa fa-volume-up"></i> 快上车，来不及解释了</strong> </div>
 		</div>
 		<div class="content-wrap">
 		<div class="content">
   <header class="article-header">
     <h1 class="article-title">
-      <a href="">{{.article.Title}}1</a></h1>
+      <a href="">{{.article.Title}}</a></h1>
     <div class="meta">
       <span id="mute-category" class="muted">
         <i class="fa fa-list-alt"></i>
-        <a href="https://www.gyiscool.com">{{.article.Title}}1</a></span>
+        <a href="https://www.gyiscool.com">{{.article.Title}}</a></span>
       <span class="muted">
-        <i class="fa fa-user"></i>{{.article.Admin.Nick_name}}</span>
+        <i class="fa fa-user"></i>{{if .article.Admin}}{{.article.Admin.Nick_name}}{{end}}</span>
       <time class="muted">
         <i class="fa fa-clock-o"></i>{{.article.Cdate}}</time>
       <span class="muted" style="display:none;">
@@ -155,11 +161,12 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
   </div>
   <article class="article-contentv2">
   	<div class="markdown-body editormd-preview-container editormd-preview-active" previewcontainer="true" style="padding:0;">
-  		{{str2html  .article.Content.Html}}
+  		{{if .article.Content}}{{str2html  .article.Content.Html}}{{end}}
+  		
   	</div>
 	
     <div class="article-social">
-      <a href="javascript:;" data-action="ding" data-id="{{.preArticle.Uid}}" id="Addlike" class="action" data-original-title="" title="">
+      <a href="javascript:;" data-action="ding" data-id="{{.article.Uid}}" id="Addlike" class="action" data-original-title="" title="">
         <i class="fa fa-heart-o"></i>喜欢 (
         <span class="count">{{.article.Zans}}</span>)</a>
       <span class="or">or</span>
@@ -226,26 +233,38 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
             <div class="comt-tips pull-right">
               <input type="hidden" name="comment_post_ID" value="{{.article.Uid}}" id="comment_post_ID">
               <input type="hidden" name="comment_parent" id="comment_parent" value="0">
-              <div class="comt-tip comt-loading" style="display: none;">正在提交, 请稍候...</div>
-              <div class="comt-tip comt-error" style="display: none;">#</div></div>
+              
+          	</div>
            <!-- <span data-type="comment-insert-smilie" class="muted comt-smilie">
               <i class="fa fa-smile-o"></i>表情</span>-->
             <span class="muted comt-mailme">
-              <label for="comment_mail_notify" class="checkbox inline" style="padding-top:0">
-                <input type="checkbox" name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked">有人回复时邮件通知我</label></span>
+              <label for="comment_mail_notify" class="checkbox inline" >
+                <input type="checkbox" name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked">有人回复时邮件通知我</label>
+            </span>
           </div>
         </div>
         <div class="comt-comterinfo" id="comment-author-info" style="display: none;">
           <h4>Hi，您需要填写昵称和邮箱！</h4>
           <ul>
             <li class="form-inline">
-              <label class="hide" for="author">昵称</label>
-              <input class="ipt" type="text" name="author" id="author" value="" tabindex="2" placeholder="昵称">
-              <span class="help-inline">昵称 (必填)</span></li>
+              	<label class="hide" for="author">昵称</label>
+				{{if .user}}
+              		<input class="ipt"   value="{{.user.Name}}" type="text"  name="author" id="author" value="" tabindex="2" placeholder="昵称">
+				{{else}}
+              		<input class="ipt"  type="text"  name="author" id="author" value="" tabindex="2" placeholder="昵称">
+				{{end}}
+
+				<span class="help-inline">昵称 (必填)</span></li>
             <li class="form-inline">
               <label class="hide" for="email">邮箱</label>
-              <input class="ipt" type="text" name="email" id="email" value="" tabindex="3" placeholder="邮箱">
-              <span class="help-inline">邮箱 (必填)</span></li>
+              	{{if .user}}
+              		<input class="ipt" readonly type="text" name="email" id="email"  value="" tabindex="3" placeholder="{{.user.Email}}">
+				{{else}}
+              		<input class="ipt" type="text" name="email" id="email" value="" tabindex="3" placeholder="邮箱">
+				{{end}}
+              
+              <span class="help-inline">邮箱 (必填)</span>
+          </li>
           </ul>
         </div>
       </div>
@@ -259,7 +278,7 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 		{{range $index, $elem := .comments}}
 			<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14599">
 		        <div class="c-avatar">
-		          <img alt="" data-original="https://www.gyiscool.com" class="avatar avatar-54 photo" height="54" width="54" src="https://gyiscool.com" style="display: block;">
+		          <img alt="" data-original="https://www.gyiscool.com" class="avatar avatar-54 photo" height="54" width="54" src="{{$elem.From_user.HeadImg}}" style="display: block;">
 		          <div class="c-main" id="div-comment-14599">{{$elem.Content}}
 		            <div class="c-meta">
 		              <span class="c-author">
@@ -271,7 +290,7 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 		        <ul class="children">
 		          <li class="comment even depth-2" id="comment-18350">
 		            <div class="c-avatar">
-		              <img alt="" data-original="https://gyiscool.com" srcset="https://gyiscool.com" class="avatar avatar-54 photo" height="54" width="54" src="https://gyiscool.com" style="display: block;">
+		              <img alt="" data-original="https://gyiscool.com" srcset="{{$elem.From_user.HeadImg}}" class="avatar avatar-54 photo" height="54" width="54" src="{{$elem.From_user.HeadImg}}" style="display: block;">
 		              <div class="c-main" id="div-comment-18350">{{$elem.To_comment.Content}}
 		                <div class="c-meta">
 		                  <span class="c-author">{{$elem.To_comment.From_user.Name}}</span>{{$elem.To_comment.Cdate}}
@@ -303,8 +322,7 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 				</div>			
 				<div class="textwidget" style="padding: 5px 20px 20px 20px;">
 					<div class="alert alert-info">
-						<p>这是我的个人博客，如果有问题需要讨论，请评论！或者发送邮件643073032@qq.com</p>
-
+						<p>这是我的个人博客，如果有问题需要讨论，请评论！</p>
 					</div>
 				</div>
 			</div>
@@ -330,7 +348,7 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 	<footer class="footer">
 		<div class="footer-inner">
 			<div class="copyright pull-left">
-			 <a href="" title="gy博客">GY的博客</a> 版权所有，保留一切权利 · <a href="" title="站点地图">站点地图</a>   ·   基于goweb构建   © 2011-2014  ·   托管于 <a rel="nofollow" target="_blank" href="">阿里云主机</a> &amp; <a rel="nofollow" target="_blank" href="">苏ICP备17004846号-1</a>
+			 <a href="" title="gy博客">GY的博客</a> 版权所有，保留一切权利 · <a href="" title="站点地图">站点地图</a>   ·   基于goweb构建   © 2011-2014  ·   托管于 <a rel="nofollow" target="_blank" href="">腾讯云主机</a> &amp; <a rel="nofollow" target="_blank" href="">苏ICP备17004846号-1</a>
 			</div>
 			<div class="trackcode pull-right"></div>
 		</div>
