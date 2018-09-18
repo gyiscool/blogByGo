@@ -1,9 +1,9 @@
 package routers
 
 import (
-	"gojob/controllers"
-	"gojob/controllers/admin"
-	"gojob/controllers/common"
+	"blogByGo/controllers"
+	"blogByGo/controllers/admin"
+	"blogByGo/controllers/common"
 
 	"github.com/astaxie/beego"
 )

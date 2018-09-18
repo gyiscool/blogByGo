@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"gojob/models"
-	"gojob/models/common"
+	"blogByGo/models"
+	"blogByGo/models/common"
 	_ "reflect"
 	_ "time"
 

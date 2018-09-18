@@ -1,7 +1,7 @@
 package admin
 
 import (
-	"gojob/models"
+	"blogByGo/models"
 	_ "reflect"
 	_ "time"
 

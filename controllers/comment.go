@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"fmt"
-	"gojob/models"
-	_ "gojob/models"
+	"blogByGo/models"
+	_ "blogByGo/models"
 	_ "reflect"
 	_ "time"
 

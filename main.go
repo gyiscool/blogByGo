@@ -1,8 +1,8 @@
 package main
 
 import (
-	"gojob/models"
-	_ "gojob/routers"
+	"blogByGo/models"
+	_ "blogByGo/routers"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"

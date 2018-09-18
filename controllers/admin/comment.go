@@ -2,7 +2,7 @@ package admin
 
 import (
 	_ "fmt"
-	"gojob/models"
+	"blogByGo/models"
 	_ "reflect"
 	"strconv"
 	_ "time"

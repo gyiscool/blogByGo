@@ -2,7 +2,7 @@ package common
 
 import (
 	"fmt"
-	_ "gojob/models"
+	_ "blogByGo/models"
 	_ "reflect"
 	_ "time"
 
