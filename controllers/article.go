@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"fmt"
 	"blogByGo/models"
 	"blogByGo/models/common"
+	"fmt"
 	_ "reflect"
 	_ "time"
 
@@ -67,7 +67,7 @@ func (c *ArticleController) Get() {
 	commetnModel := o.QueryTable("comment")
 
 	if article.Iid != 0 {
-		commetnModel = commetnModel.Filter("post_id", article.Iid)
+		commetnModel = commetnModel.Filter("post_id", article.Uid)
 	}
 
 	nums, _ := commetnModel.RelatedSel().Count()
