@@ -9,6 +9,7 @@
 window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, roll: [0,0]}
 </script>
 	<link rel="dns-prefetch" href="http://libs.baidu.com/">
+	<link rel="shortcut icon" href="/static/images/faviconq.ico" type="image/x-icon" />
 	<link rel="dns-prefetch" href="http://s.w.org/">
 	<link rel="stylesheet" id="style-css" href="/static/css/style/style.css" type="text/css" media="all">
 	<link rel="stylesheet" id="style-cssa" href="/static/css/home/style.css" type="text/css" media="all">
@@ -34,9 +35,7 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 		margin: 0 0 0 0px;
 	}
 	.linenums li{
-
-
-	    height: 22px;
+	   line-height: 1.6;
 	}
 	.article-content li:before {
 		    
