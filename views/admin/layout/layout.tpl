@@ -33,7 +33,7 @@
           <a href="javascript:;">文章管理<span class="layui-nav-more"></span></a>
           <dl class="layui-nav-child">
             <dd lay-id="articles"><a href="/adm/articles">列表</a></dd>
-            <dd lay-id="article"><a  href="http://gy.gyiscool.com/static/editor.md-master/examples/define-plugin.html?getUrl=/adm/art&saveUrl=/adm/article&uid=">新增</a></dd>
+            <dd lay-id="article"><a  href="/static/editor.md-master/examples/define-plugin.html?getUrl=/adm/art&saveUrl=/adm/article&uid=">新增</a></dd>
 			<dd lay-id="comments"><a  href="/adm/comments">回复列表</a></dd>
           </dl>
         </li>
