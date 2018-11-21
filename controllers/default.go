@@ -3,6 +3,7 @@ package controllers
 import (
 	"blogByGo/models"
 	"blogByGo/models/common"
+	"fmt"
 	_ "reflect"
 	_ "time"
 
@@ -81,6 +82,8 @@ func (c *MainController) Get() {
 	c.Data["termUrl"] = termUrl //当前页码
 
 	pagination := &common.Pagination{TotalPage: pagenum, NowPage: page, Pagesize: pagesize, Url: pageUrl}
+
+	fmt.Println(pagination)
 
 	c.Data["string"] = pagination.GetPaginationHtml() //当前页码
 	//fmt.Println(c.Data["string"])
