@@ -27,6 +27,8 @@ window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', com
 		display: block;
 	}
 	.popover-content a {
+
+		
      	color: white; 
 	}
 	.prettyprint.linenums, pre.prettyprint.linenums  {

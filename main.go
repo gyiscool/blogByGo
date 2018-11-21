@@ -3,6 +3,7 @@ package main
 import (
 	"blogByGo/models"
 	_ "blogByGo/routers"
+	"fmt"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
@@ -15,7 +16,18 @@ var globalSessions *session.Manager
 
 //初始化 数据库连接等 session
 func init() {
-	orm.RegisterDataBase("default", "mysql", "root:123456@(127.0.0.1:3306)/gy?charset=utf8", 30)
+
+	var MysqldataSource, user, pass, url, db string
+
+	user = beego.AppConfig.String("mysqluser")
+	pass = beego.AppConfig.String("mysqlpass")
+	url = beego.AppConfig.String("mysqlurls")
+	db = beego.AppConfig.String("mysqldb")
+
+	MysqldataSource = fmt.Sprintf("%s:%s@(%s)/%s?charset=utf8", user, pass, url, db)
+	fmt.Println(MysqldataSource)
+
+	orm.RegisterDataBase("default", "mysql", MysqldataSource, 30)
 
 	orm.RegisterModel(new(models.User))
 	orm.RegisterModel(new(models.Article))

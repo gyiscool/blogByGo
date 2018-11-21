@@ -15,7 +15,7 @@ func (page *ModelPage) GetTotalPage() int {
 	pagenum := int(int(nums) / int(pagesize))
 
 	//如果需要加残余元素的页码
-	if int(pagesize*pagenum) > int(nums) {
+	if int(pagesize*pagenum) < int(nums) {
 		pagenum++
 	}
 
