@@ -15,7 +15,7 @@ var globalSessions *session.Manager
 
 //初始化 数据库连接等 session
 func init() {
-	orm.RegisterDataBase("default", "mysql", "root:root@(127.0.0.1:3306)/gy?charset=utf8", 30)
+	orm.RegisterDataBase("default", "mysql", "root:123456@(127.0.0.1:3306)/gy?charset=utf8", 30)
 
 	orm.RegisterModel(new(models.User))
 	orm.RegisterModel(new(models.Article))

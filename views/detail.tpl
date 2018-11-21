@@ -3,10 +3,12 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=10,IE=9,IE=8">
+	<meta name="baidu-site-verification" content="2m6jxCb2Ab" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-	<title>GY的个人博客</title>
+	<meta name="keywords" content="{{.article.Title}},java,spring,redis,mysql,go,php,java,beego,yii2,设计模式,nginx,响应时间,性能优化">
+	<title>{{.article.Title}}</title>
 <script>
-window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, roll: [0,0]}
+window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, roll: [0,0]}
 </script>
 	<link rel="dns-prefetch" href="http://libs.baidu.com/">
 	<link rel="shortcut icon" href="/static/images/faviconq.ico" type="image/x-icon" />
@@ -80,8 +82,8 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 		<div class="yusi-logo">
 			<a href="#">
 				<h1>
-					<span class="yusi-mono">GengY</span>
-					<span class="yusi-bloger">--进步+分享</span>
+					<span class="yusi-mono">耿阳</span>
+					<span class="yusi-bloger">de个人博客</span>
 				</h1>
 			</a>
 		</div>

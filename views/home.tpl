@@ -1,14 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=10,IE=9,IE=8">
+	<meta name="baidu-site-verification" content="2m6jxCb2Ab" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-	<meta name="keywords" content="go,php,java,beego,yii2,设计模式,nginx,响应时间,性能优化">
-	<title>GY的个人博客</title>
+	<meta name="keywords" content="java,spring,redis,mysql,go,php,java,beego,yii2,设计模式,nginx,响应时间,性能优化">
+	<title>耿阳的个人博客</title>
 <script>
-window._deel = {name: '个人博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, roll: [0,0]}
+window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, roll: [0,0]}
 </script>
 	<link rel="dns-prefetch" href="http://libs.baidu.com/">
 	<link rel="dns-prefetch" href="http://s.w.org/">
@@ -21,7 +22,7 @@ window._deel = {name: '个人博客',url: '8', ajaxpager: '/ss/ss', commenton: 0
 	<script src="/static/js/home/wp-emoji-release.min.js" type="text/javascript" defer=""></script>
 	<script type="text/javascript" src="/static/js/home/wp-embed.min.js"></script>
 	<script type="text/javascript" src="/static/js/home/page.js"></script>
-	<meta name="description" content="gy的个人博客">
+	<meta name="description" content="耿阳的个人博客">
 	<!--分页看看吧-->
 	
 </headpageUrl>
@@ -32,8 +33,8 @@ window._deel = {name: '个人博客',url: '8', ajaxpager: '/ss/ss', commenton: 0
 		<div class="yusi-logo">
 			<a href="#">
 				<h1>
-					<span class="yusi-mono">GengY</span>
-					<span class="yusi-bloger">--进步+分享</span>
+					<span class="yusi-mono">耿阳</span>
+					<span class="yusi-bloger">de个人博客</span>
 				</h1>
 			</a>
 		</div>
@@ -170,7 +171,7 @@ window._deel = {name: '个人博客',url: '8', ajaxpager: '/ss/ss', commenton: 0
 	<footer class="footer">
 		<div class="footer-inner">
 			<div class="copyright pull-left">
-			 <a href="http://gyiscool.com/" title="gy博客">GY的博客</a> 版权所有，保留一切权利 · <a href="" title="站点地图">站点地图</a>   ·   基于goweb构建   © 2011-2019  ·   托管于 <a rel="nofollow" target="_blank" href="#">苏ICP备17004846号-1</a> &amp; <a rel="nofollow" target="_blank" href="http://gyiscool.com">个人存储</a>
+			 <a href="http://www.gyiscool.com/" title="gy博客">耿阳的个人博客</a> 版权所有，保留一切权利 · <a href="" title="站点地图">站点地图</a>   ·   基于goweb构建   © 2011-2019  ·   托管于腾讯云  ·  <a rel="nofollow" target="_blank" href="#">苏ICP备17004846号-1</a> &amp; <a rel="nofollow" target="_blank" href="http://gyiscool.com">个人存储</a>
 			</div>
 			<div class="trackcode pull-right"></div>
 		</div>
