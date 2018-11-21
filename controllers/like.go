@@ -46,7 +46,7 @@ func (c *LikeController) Post() {
 	}
 
 	//是否赞过
-	likeError := o.QueryTable("like").Filter("user_id", userId).Filter("article_id", uid).One(&like) //
+	likeError := o.QueryTable("like").Filter("is_cancle", 0).Filter("user_id", userId).Filter("article_id", uid).One(&like) //
 
 	//没有，攒一个，并且统计进去
 	if likeError == orm.ErrNoRows {
@@ -70,8 +70,11 @@ func (c *LikeController) Post() {
 		c.StopRun()
 
 	} else {
+		//	取消赞
+		like.IsCancle = 1
+		o.Update(&like)
 
-		mystruct = &models.SampRes{Success: 0, Message: "赞赞其他文章吧", Data: article.Zans}
+		mystruct = &models.SampRes{Success: 0, Message: "您已经取消了赞", Data: article.Zans}
 		c.Data["json"] = mystruct
 		c.ServeJSON()
 		c.StopRun()

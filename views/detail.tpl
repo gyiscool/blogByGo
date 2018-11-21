@@ -25,6 +25,8 @@ window._deel = {name: 'gy博客',url: '8', ajaxpager: '/ss/ss', commenton: 0, ro
 		display: block;
 	}
 	.popover-content a {
+
+		
      	color: white; 
 	}
 	.prettyprint.linenums, pre.prettyprint.linenums  {
