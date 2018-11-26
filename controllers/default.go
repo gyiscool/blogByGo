@@ -3,6 +3,7 @@ package controllers
 import (
 	"blogByGo/models"
 	"blogByGo/models/common"
+	"fmt"
 	_ "reflect"
 	_ "time"
 
@@ -47,10 +48,14 @@ func (c *MainController) Get() {
 
 	//主要列表 以及分页步骤
 	articlesModel := o.QueryTable("article")
+
 	//过滤条件
 	if termId != "" {
 		articlesModel = articlesModel.Filter("term", termId)
 	}
+
+	articlesModel = articlesModel.Filter("is_public", 1)
+	articlesModel = articlesModel.Filter("del_flag", 0)
 
 	if title != "" {
 		pageUrl = pageUrl + "?title=" + title + "&"
@@ -59,14 +64,14 @@ func (c *MainController) Get() {
 		pageUrl = pageUrl + "?"
 	}
 
-	nums, _ := articlesModel.OrderBy("-utime").Count()
+	nums, _ := articlesModel.Count()
 
 	//构建分页条件
 	modelPage = &common.ModelPage{TotalNum: int(nums), SearchPage: page, Pagesize: pagesize}
 	pageOffset = modelPage.GetOffset()
 	pagenum = modelPage.GetTotalPage()
 
-	_, _ = articlesModel.RelatedSel("Admin", "Term").OrderBy("-utime").Limit(pagesize, pageOffset).All(&articles) //最新修改
+	_, _ = articlesModel.RelatedSel("Admin", "Term").OrderBy("level", "-iid").Limit(pagesize, pageOffset).All(&articles) //最新修改
 
 	var lastArticle []models.Article
 	o.QueryTable("article").OrderBy("-iid").Limit(6).All(&lastArticle)
@@ -81,6 +86,8 @@ func (c *MainController) Get() {
 	c.Data["termUrl"] = termUrl //当前页码
 
 	pagination := &common.Pagination{TotalPage: pagenum, NowPage: page, Pagesize: pagesize, Url: pageUrl}
+
+	fmt.Println(pagination)
 
 	c.Data["string"] = pagination.GetPaginationHtml() //当前页码
 	//fmt.Println(c.Data["string"])
