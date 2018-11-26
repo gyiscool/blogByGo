@@ -366,5 +366,18 @@ window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', com
 <div id="cVim-status-bar" style="top: 0px;"></div>
 <script type="text/javascript">
 		set_pagination_v2({{.pagenum}},{{.page}},10,{{.pageUrl}});
+		
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 </html>
