@@ -1,8 +1,8 @@
 package admin
 
 import (
-	"fmt"
 	"blogByGo/models"
+	"fmt"
 	_ "reflect"
 	"strconv"
 	"time"
@@ -107,6 +107,7 @@ func (c *ArticleController) Post() {
 
 	//article赋值
 	post.Title = c.GetString("title")
+	post.IsPublic, _ = c.GetInt("is_public")
 	post.Term = &models.Term{Uid: term}
 	post.Admin = &models.Admin{Uid: adminId}
 
@@ -137,6 +138,7 @@ func (c *ArticleController) Post() {
 		timestamp := time.Now().Unix()
 		post.Uid = strconv.FormatInt(timestamp, 10)
 		post.Cdate = time.Now().Format("2006-01-02 15:04:05")
+		post.Utime = time.Now().Format("2006-01-02 15:04:05")
 
 		//插入主表
 		_, postErr := o.Insert(&post)

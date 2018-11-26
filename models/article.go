@@ -2,6 +2,7 @@ package models
 
 type Article struct {
 	Iid      int
+	Level    int
 	Uid      string `orm:"column(uid);pk"`
 	Del_flag int
 	IsPublic int
