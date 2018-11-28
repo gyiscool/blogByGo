@@ -101,6 +101,8 @@ func (c *ArticleController) Get() {
 	c.Data["page"] = page                    //当前页码
 	c.Data["pagenum"] = pagenum              //总页码
 	c.Data["pageUrl"] = "/article/" + postId //当前页码
-	c.TplName = "detail.tpl"
+
+	c.Layout = "home/layout/layout.tpl"
+	c.TplName = "home/detail.tpl"
 
 }

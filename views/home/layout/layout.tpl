@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -17,15 +17,68 @@ window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', com
 	<!--<link rel="stylesheet" id="style-css" href="/static/css/style/reset.css" type="text/css" media="all"> -->
 	<link rel="stylesheet" id="style-css" href="/static/css/style/style.css" type="text/css" media="all">
 	<link rel="stylesheet" id="style-cssa" href="/static/css/home/style.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/static\editor.md-master\css\editormd.css" />   
+	
 	<script type="text/javascript" src="/static/js/home/jquery.min.js"></script>
 	<script type="text/javascript" src="/static/js/home/jquery.js"></script>
 	<script src="/static/js/home/wp-emoji-release.min.js" type="text/javascript" defer=""></script>
 	<script type="text/javascript" src="/static/js/home/wp-embed.min.js"></script>
 	<script type="text/javascript" src="/static/js/home/page.js"></script>
 	<meta name="description" content="耿阳的个人博客">
-	<!--分页看看吧-->
-	
-</headpageUrl>
+	<style>
+	.comt-mailme {
+		display: block;
+	}
+	.popover-content a {
+
+		
+     	color: white; 
+	}
+	.prettyprint.linenums, pre.prettyprint.linenums  {
+		box-shadow: inset 0 0 0 #eee, inset 0 0 0 #33b796;
+		
+	}
+	 pre.prettyprint.linenums ol{
+		margin: 0 0 0 0px;
+	}
+	.linenums li{
+	   line-height: 1.6;
+	}
+	.article-content li:before {
+		    
+		    content: "";
+		   margin: 0; 
+     		padding: 0; 
+     		width: 0px
+ 	}
+
+ 	ul, menu, dir {
+ 	    list-style-type: disc;
+ 	}
+ 	ul ul, ol ul {
+    list-style-type: circle;
+	}
+	.d_postlist ul{
+		 list-style: none;
+
+	}
+
+	.article-contentv2 {
+	    font-size: 15px;
+	    text-indent: 0px;
+	    line-height: 26px;
+
+	    word-break: break-all;
+	    word-wrap: break-word;
+	    position: relative;
+	    padding: 10px 20px 20px 20px;
+	    background-color: #fff;
+	}
+	.children{
+		list-style: none;
+	}
+	</style>
+</head>
 <body class="home blog logged-in" url="{{.pageUrl}}">
 
 	<header id="header" class="header">
@@ -33,8 +86,9 @@ window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', com
 		<div class="yusi-logo">
 			<a href="#">
 				<h1>
-					<span class="yusi-mono">耿阳</span>
-					<span class="yusi-bloger">de个人博客</span>
+					<span class="yusi-mono" style="font-family: FangSong;">耿阳&nbsp;</span>
+					<span class="yusi-bloger" style="font-family: KaiTi;">&nbsp;de&nbsp;个人博客{{.ptermId}}
+</span>
 				</h1>
 			</a>
 		</div>
@@ -44,9 +98,12 @@ window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', com
 			<ul class="nav">
 				<li id="menu-item-3307" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3307">
 						<a href="/">首页</a>
-				</li>
+											</li>
 				{{range $index, $elem := .terms}}
-					<li id="menu-item-3307" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3307">
+					<li id="menu-item-3307" 
+							class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3307"
+							{{.Uid}}
+							>
 						<a href="/term/{{$elem.Uid}}/articles">{{$elem.Title}}</a>
 						{{if .Terms}}
 							<ul class="sub-menu">
@@ -89,84 +146,9 @@ window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', com
 			<div class="toptip"><strong class="text-success"><i class="fa fa-volume-up"></i> 快上车，来不及解释了</strong> </div>
 		</div>
 
-		<!--列表页-->
-		<div class="content-wrap">
-			<div class="content">
-			
-				{{range $index, $elem := .articles}}
-					<article class="excerpt">
-						<header>
-							<a class="label label-important" href="/article/{{$elem.Uid}}">{{$elem.Term.Title}}<i class="label-arrow"></i>
-							</a>
-							<h2><a target="_blank" href="/article/{{$elem.Uid}}" title="11月5日">{{$elem.Title}}  </a></h2>
-						</header>
-						<div class="focus">
-						</div>
-						<!--<span class="note"> {{$elem.Brief}}</span>-->
-						<p class="auth-span">
-							<span class="muted">
-								<i class="fa fa-user"></i> 
-								<a href="javascript:;">{{if $elem.Admin}}{{$elem.Admin.Nick_name}}{{end}}</a>
-							</span>
-							<span class="muted"><i class="fa fa-clock-o"></i> {{$elem.Cdate}}</span>
-							<span class="muted"><i class="fa fa-eye"></i> {{$elem.Views}}℃</span>
-							<span class="muted">
-								<i class="fa fa-comments-o"></i>
-								<a target="_blank" href="/article/{{$elem.Uid}}#comments">{{$elem.Comments}}评论</a>
-							</span>
-							<span class="muted">
-								<a href="javascript:;" data-action="like" data-id="{{$elem.Uid}}" id="Addlike" class="action"><i class="fa fa-heart-o"></i><span class="count">{{$elem.Zans}}</span>喜欢</a>
-							</span>
-						</p>
-					</article>
-				{{end}}
-
-					<div class="pagination" style="{{if .string}} display:block;{{end}}">
-						<ul>
-						{{str2html .string}}
-						</ul>
-					</div>
-
-			</div>
-		</div>
-		
-		<!--侧边栏-->
-		<aside class="sidebar">	
-			<div class="widget widget_text">
-				<div class="textwidget">
-					</div>
-				</div>
-			</div>
-			<div class="widget widget_text">
-				<div class="title">
-					<h2><i class="themify-menu-icon ti-themify-favicon"></i> 写在前头</h2>
-				</div>			
-				<div class="textwidget" style="padding: 5px 20px 20px 20px;">
-					<div class="alert alert-info">
-						<p>这是我的个人博客，如果有问题需要讨论，请评论！或者发送邮件643073032@qq.com</p>
-						<!--<p>
-							<a href="http://weibo.com/live" target="_blank" data-slimstat="5"><i class="fa fa-send"></i> gy</a>
-						</p>-->
-					</div>
-				</div>
-			</div>
-
-			<div class="widget d_postlist">
-			  <div class="title">
-			    <h2>最新发布</h2></div>
-			  <ul>
-			{{range $index, $elem := .newArticles}}
-			    <li>
-			      <a href="/article/{{$elem.Uid}}" title="{{$elem.Title}}" style='padding-left:0px;'>
-			        <span class="text" style="height:30px;margin-left:10px">{{$elem.Title}}</span>
-			        <span class="muted">{{$elem.Cdate}}</span>
-			        <span class="muted" style="float: right;">{{$elem.Comments}}评论</span></a>
-			    </li>
-				{{end}}			
-			  </ul>
-			</div>
-		</aside>
-				
+		<!--主要内容-->
+		{{.LayoutContent}}
+					
 	</section>
 	<footer class="footer">
 		<div class="footer-inner">
