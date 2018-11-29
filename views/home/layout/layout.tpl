@@ -62,6 +62,10 @@ window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', com
 		 list-style: none;
 
 	}
+	
+	.sub-menu{
+		list-style: none;
+	}
 
 	.article-contentv2 {
 	    font-size: 15px;
@@ -97,19 +101,20 @@ window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', com
 		<div id="nav-header" class="navbar">
 			<ul class="nav">
 				<li id="menu-item-3307" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3307">
-						<a href="/">首页</a>
+					<a href="/">首页</a>
 											</li>
 				{{range $index, $elem := .terms}}
 					<li id="menu-item-3307" 
 							class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3307"
-							{{.Uid}}
-							>
-						<a href="/term/{{$elem.Uid}}/articles">{{$elem.Title}}</a>
+							{{if eq $.ptermId $elem.Uid}} style="background: #00a67c;" {{end}}	
+														>    
+													
+						<a href="/term/{{$elem.Uid}}/articles.html">{{$elem.Title}}</a>
 						{{if .Terms}}
 							<ul class="sub-menu">
 								{{range $index1, $elem1 := .Terms}}
 									<li id="menu-item-3301" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3301">
-										<a href="/term/{{$elem1.Uid}}/articles">{{$elem1.Title}}</a>
+										<a href="/term/{{$elem1.Uid}}/articles.html">{{$elem1.Title}}</a>
 									</li>
 								{{end}}
 							</ul>
@@ -124,7 +129,7 @@ window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', com
 					</div>
 					<div class="search-expand" style="display: none;">
 						<div class="search-expand-inner">
-							<form method="get" class="searchform themeform" onsubmit="location.href='?title=' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="">
+							<form method="get" class="searchform themeform" onsubmit="location.href='{{if .search}}{{.search}}{{end}}?title=' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="">
 								<div> 
 									<input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='search...';" onfocus="if(this.value=='search...')this.value='';" value="search...">
 								</div>
@@ -148,12 +153,48 @@ window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', com
 
 		<!--主要内容-->
 		{{.LayoutContent}}
+		<!--侧边栏-->
+		<aside class="sidebar">	
+			<div class="widget widget_text">
+				<div class="textwidget">
+					</div>
+				</div>
+			</div>
+			<div class="widget widget_text">
+				<div class="title">
+					<h2><i class="themify-menu-icon ti-themify-favicon"></i> 写在前头</h2>
+				</div>			
+				<div class="textwidget" style="padding: 5px 20px 20px 20px;">
+					<div class="alert alert-info">
+						<p>这是我的联系方式邮件643073032@qq.com</p>
+						<!--<p>
+							<a href="http://weibo.com/live" target="_blank" data-slimstat="5"><i class="fa fa-send"></i> gy</a>
+						</p>-->
+					</div>
+				</div>
+			</div>
+		
+			<div class="widget d_postlist">
+			  <div class="title">
+				<h2>最新发布</h2></div>
+			  <ul>
+			{{range $index, $elem := .newArticles}}
+				<li>
+				  <a href="/article/{{$elem.Uid}}.html" title="{{$elem.Title}}" style='padding-left:0px;'>
+					<span class="text" style="margin-left:10px">{{$elem.Title}}</span>
+					<span class="muted">{{$elem.Cdate}}</span>
+					<span class="muted" style="float: right;">{{$elem.Comments}}评论</span></a>
+				</li>
+				{{end}}			
+			  </ul>
+			</div>
+		</aside>
 					
 	</section>
 	<footer class="footer">
 		<div class="footer-inner">
 			<div class="copyright pull-left">
-			 <a href="http://www.gyiscool.com/" title="gy博客">耿阳的个人博客</a> 版权所有，保留一切权利 · <a href="" title="站点地图">站点地图</a>   ·   基于goweb构建   © 2011-2019  ·   托管于腾讯云  ·  <a rel="nofollow" target="_blank" href="#">苏ICP备17004846号-1</a> &amp; <a rel="nofollow" target="_blank" href="http://gyiscool.com">个人存储</a>
+			 <a href="{{$.httpUrl}}" title="gy博客">耿阳的个人博客</a> 版权所有，保留一切权利 · <a href="" title="站点地图">站点地图</a>   ·   基于goweb构建   © 2011-2019  ·   托管于腾讯云  ·  <a rel="nofollow" target="_blank" href="#">苏ICP备17004846号-1</a> &amp; <a rel="nofollow" target="_blank" href="{{$.httpUrl}}">个人存储</a>
 			</div>
 			<div class="trackcode pull-right"></div>
 		</div>

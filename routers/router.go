@@ -9,10 +9,15 @@ import (
 )
 
 func init() {
-	beego.Router("/", &controllers.MainController{})
-	beego.Router("/term/:term_id/articles", &controllers.MainController{})
+	//前台
+	//展示
+	beego.Router("/articles-?:page:int.html", &controllers.MainController{})
+	beego.Router("/term/:term_id/articles.html", &controllers.MainController{})
+	beego.Router("/term/:term_id/articles-?:page:int.html", &controllers.MainController{})
+	beego.Router("/article/?:id.html", &controllers.ArticleController{})
+
+	//前台异步请求
 	beego.Router("/comment", &controllers.CommentController{})
-	beego.Router("/article/?:id", &controllers.ArticleController{})
 	beego.Router("/like/article/:id", &controllers.LikeController{})
 
 	/**后台管理模块

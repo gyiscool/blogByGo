@@ -24,9 +24,10 @@ func (c *ArticleController) Get() {
 	var modelPage *common.ModelPage
 	var pageOffset int
 	var user models.User
+	ptermId := ""
 
 	page, _ := c.GetInt("page") //当前页码
-	pagesize := 5               //每页数量
+	pagesize := 10              //每页数量
 	pagenum := 0                //最后一页数量
 
 	postId := c.Ctx.Input.Param(":id")
@@ -56,12 +57,12 @@ func (c *ArticleController) Get() {
 	o.LoadRelated(&article, "Content")
 
 	//上一个，下一个
-	_ = o.QueryTable("article").Filter("iid__lt", article.Iid).RelatedSel().OrderBy("-iid").Limit(1).One(&preArticle) //上一个
-	_ = o.QueryTable("article").Filter("iid__gt", article.Iid).RelatedSel().OrderBy("iid").Limit(1).One(&nextArticle) //下一个
+	_ = o.QueryTable("article").Filter("iid__lt", article.Iid).Filter("is_public", 1).Filter("del_flag", 0).RelatedSel().OrderBy("-iid").Limit(1).One(&preArticle) //上一个
+	_ = o.QueryTable("article").Filter("iid__gt", article.Iid).Filter("is_public", 1).Filter("del_flag", 0).RelatedSel().OrderBy("iid").Limit(1).One(&nextArticle) //下一个
 
 	//右侧
 	var newArticles []models.Article
-	o.QueryTable("article").RelatedSel().OrderBy("-iid").Limit(6).All(&newArticles)
+	o.QueryTable("article").RelatedSel().Filter("is_public", 1).Filter("del_flag", 0).OrderBy("-iid").Limit(6).All(&newArticles)
 
 	//查看评论分页
 	commetnModel := o.QueryTable("comment")
@@ -97,10 +98,13 @@ func (c *ArticleController) Get() {
 	c.Data["nextArticle"] = nextArticle
 	c.Data["newArticles"] = newArticles
 	c.Data["comments"] = comments
+	c.Data["ptermId"] = ptermId
 	//处理分页
-	c.Data["page"] = page                    //当前页码
-	c.Data["pagenum"] = pagenum              //总页码
-	c.Data["pageUrl"] = "/article/" + postId //当前页码
+	c.Data["page"] = page                              //当前页码
+	c.Data["pagenum"] = pagenum                        //总页码
+	c.Data["pageUrl"] = "/article/" + postId + ".html" //当前页码
+	c.Data["search"] = "/"                             //当前页码
+	c.Data["httpUrl"] = "http://www.gyiscool.com"      //当前页码
 
 	c.Layout = "home/layout/layout.tpl"
 	c.TplName = "home/detail.tpl"

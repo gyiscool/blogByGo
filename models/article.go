@@ -13,7 +13,7 @@ type Article struct {
 	Cdate    string
 	Utime    string
 	Zans     int
-	Comments int
+	Comments int64
 	Views    int
 	Term     *Term `orm:"null;rel(fk)"`
 }

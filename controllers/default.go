@@ -5,6 +5,7 @@ import (
 	"blogByGo/models/common"
 	"fmt"
 	_ "reflect"
+	"strconv"
 	_ "time"
 
 	"github.com/astaxie/beego"
@@ -17,12 +18,19 @@ type MainController struct {
 
 func (c *MainController) Get() {
 
+	page := 1       //页码
+	termTitle := "" //当前分类名称
+
 	//获取参数
-	title := c.GetString("title")
-	termId := c.Ctx.Input.Param(":term_id")
-	termTitle := ""
-	ptermId := termId
-	page, _ := c.GetInt("page", 1)
+	title := c.GetString("title")           //搜索名称
+	termId := c.Ctx.Input.Param(":term_id") //分类的Uid
+	ptermId := termId                       //所属一级分类的UId
+
+	//获取页码
+	b, error := strconv.Atoi(c.Ctx.Input.Param(":page"))
+	if error == nil {
+		page = b
+	}
 
 	//定义分页参数 url
 	pagesize := 10
@@ -78,8 +86,9 @@ func (c *MainController) Get() {
 
 	_, _ = articlesModel.RelatedSel("Admin", "Term").OrderBy("level", "-iid").Limit(pagesize, pageOffset).All(&articles) //最新修改
 
+	//侧边栏
 	var lastArticle []models.Article
-	o.QueryTable("article").OrderBy("-iid").Limit(6).All(&lastArticle)
+	o.QueryTable("article").Filter("is_public", 1).Filter("del_flag", 0).OrderBy("-iid").Limit(6).All(&lastArticle)
 
 	// 当前分类 信息
 	if termId != "" {
@@ -88,7 +97,7 @@ func (c *MainController) Get() {
 		_ = termModel.One(&term) //最新修改
 
 		ptermId = termId
-		if term.Term != nil && term.Term.Uid != "" {
+		if term.Term != nil && term.Term.Uid != "0" {
 			ptermId = term.Term.Uid
 		}
 		termTitle = term.Title
@@ -99,17 +108,21 @@ func (c *MainController) Get() {
 	c.Data["articles"] = articles
 	c.Data["newArticles"] = lastArticle
 	c.Data["term"] = termId
-	c.Data["page"] = page           //当前页码
-	c.Data["pagenum"] = pagenum     //总页码
-	c.Data["pageUrl"] = pageUrl     //当前页码
-	c.Data["termUrl"] = termUrl     //当前页码
-	c.Data["ptermId"] = ptermId     //当前页码
-	c.Data["termTitle"] = termTitle //当前页码
+	c.Data["page"] = page                         //当前页码
+	c.Data["pagenum"] = pagenum                   //总页码
+	c.Data["pageUrl"] = pageUrl                   //当前页码
+	c.Data["termUrl"] = termUrl                   //当前页码
+	c.Data["ptermId"] = ptermId                   //当前页码
+	c.Data["termTitle"] = termTitle               //当前页码
+	c.Data["httpUrl"] = "http://www.gyiscool.com" //当前页码
 	fmt.Println(ptermId)
 
 	pagination := &common.Pagination{TotalPage: pagenum, NowPage: page, Pagesize: pagesize, Url: pageUrl}
 
-	fmt.Println(pagination)
+	fmt.Println(ptermId)
+	fmt.Println(term)
+	fmt.Println(term.Term)
+	fmt.Println(term.Terms)
 
 	c.Data["string"] = pagination.GetPaginationHtml() //当前页码
 

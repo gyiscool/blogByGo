@@ -148,11 +148,11 @@ func (c *ArticleController) Post() {
 			content.Article = &post
 			o.Insert(&content)
 
-			mystruct = &Ress{Code: 0, Message: "添加成功", Data: post, Count: 0}
+			mystruct = &Ress{Code: 1, Message: "添加成功", Data: post, Count: 0}
 
 		} else {
 
-			mystruct = &Ress{Code: 1, Message: "添加失败", Count: 0}
+			mystruct = &Ress{Code: 0, Message: "添加失败", Count: 0}
 		}
 
 	} else { //更新
@@ -161,6 +161,9 @@ func (c *ArticleController) Post() {
 			//post.Uid = postId
 
 			oldpost.Title = c.GetString("title")
+			oldpost.Title = c.GetString("title")
+			oldpost.IsPublic, _ = c.GetInt("is_public")
+			oldpost.Term = &models.Term{Uid: term}
 
 			oldpost.Utime = time.Now().Format("2006-01-02 15:04:05")
 
@@ -174,7 +177,7 @@ func (c *ArticleController) Post() {
 			}
 		} else {
 
-			mystruct = &Ress{Code: 1, Message: "没有数据", Count: 0}
+			mystruct = &Ress{Code: 0, Message: "没有数据", Count: 0}
 
 		}
 	}

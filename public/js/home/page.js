@@ -1,5 +1,6 @@
 //总页数 当前页， 每页得条数
 function set_pagination(allpage, nowpage, pagesize,url) {
+
 	var str = "<ul>";
 	var start = 1;
 	var end = allpage;
@@ -35,6 +36,7 @@ function set_pagination(allpage, nowpage, pagesize,url) {
 
 //评论分页
 function set_pagination_v2(allpage, nowpage, pagesize,url){
+
 	var str = "";
 	var start = 1;
 	var end = allpage;

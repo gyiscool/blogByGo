@@ -1433,6 +1433,7 @@ function() {
                         500);
                         a(".comt-avatar .avatar").attr("src", a(".commentnew .avatar:last").attr("src"));
                         l();
+                        console.log(new_htm);
                         k++;
                         o = "";
                         a("*").remove("#edit_id");
@@ -1443,6 +1444,7 @@ function() {
                             w.parentNode.insertBefore(C, w);
                             w.parentNode.removeChild(w)
                         }
+                        window.location.href="#comment"
                     }
                 }
             });

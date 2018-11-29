@@ -6,7 +6,7 @@
     <div class="meta">
       <span id="mute-category" class="muted">
         <i class="fa fa-list-alt"></i>
-        <a href="https://www.gyiscool.com">{{.article.Title}}</a></span>
+        <a href="{{.httpUrl}}">{{.article.Term.Title}}</a></span>
       <span class="muted">
         <i class="fa fa-user"></i>{{if .article.Admin}}{{.article.Admin.Nick_name}}{{end}}</span>
       <time class="muted">
@@ -15,7 +15,7 @@
         <i class="fa fa-eye"></i>17729℃</span>
       <span class="muted">
         <i class="fa fa-comments-o"></i>
-        <a href="https://gyiscool.com">{{.article.Comments}}评论</a></span>
+        <a href="{{.httpUrl}}">{{.article.Comments}}评论</a></span>
     </div>
   </header>
   <div class="banner banner-post">
@@ -63,7 +63,7 @@
     <span class="article-nav-prev">
 		{{if .preArticle.Uid}}
 			<i class="fa fa-angle-double-left"></i>
-			<a href="/article/{{.preArticle.Uid}}" rel="prev">
+			<a href="/article/{{.preArticle.Uid}}.html" rel="prev">
 			{{.preArticle.Title}}
 			</a>
 		{{else}}
@@ -72,7 +72,7 @@
 	</span>
     <span class="article-nav-next">
 		{{if .nextArticle.Uid}}
-		    <a href="/article/{{.nextArticle.Uid}}" rel="next">{{.nextArticle.Title}}</a>
+		    <a href="/article/{{.nextArticle.Uid}}.html" rel="next">{{.nextArticle.Title}}</a>
 		    <i class="fa fa-angle-double-right"></i>
 		{{else}}
 			无
@@ -84,7 +84,7 @@
     <form action="" method="post" id="commentform">
       <div class="comt-title">
         <div class="comt-avatar pull-left">
-          <img alt="" src="http://gyiscool.com" srcset="http://gyiscool.com" class="avatar avatar-54 photo" height="54" width="54"></div>
+          <img alt="" src="{{.httpUrl}}" srcset="{{.httpUrl}}" class="avatar avatar-54 photo" height="54" width="54"></div>
         <div class="comt-author pull-left">发表我的评论</div>
         <a id="cancel-comment-reply-link" class="pull-right" href="javascript:;">取消评论</a></div>
       <div class="comt">
@@ -136,12 +136,12 @@
   <div id="postcomments">
     <div id="comments">
       <i class="fa fa-comments-o"></i>
-      <b>({{.pagenum}})</b>条回复</div>
+      <b>({{.article.Comments}})</b>条回复</div>
     <ol class="commentlist">
 		{{range $index, $elem := .comments}}
 			<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14599">
 		        <div class="c-avatar">
-		          <img alt="" data-original="https://www.gyiscool.com" class="avatar avatar-54 photo" height="54" width="54" src="{{$elem.From_user.HeadImg}}" style="display: block;">
+		          <img alt="" data-original="{{$.httpUrl}}" class="avatar avatar-54 photo" height="54" width="54" src="{{$elem.From_user.HeadImg}}" style="display: block;">
 		          <div class="c-main" id="div-comment-14599">{{$elem.Content}}
 		            <div class="c-meta">
 		              <span class="c-author">
@@ -153,7 +153,7 @@
 		        <ul class="children">
 		          <li class="comment even depth-2" id="comment-18350">
 		            <div class="c-avatar">
-		              <img alt="" data-original="https://gyiscool.com" srcset="{{$elem.From_user.HeadImg}}" class="avatar avatar-54 photo" height="54" width="54" src="{{$elem.From_user.HeadImg}}" style="display: block;">
+		              <img alt="" data-original="{{$.httpUrl}}" srcset="{{$elem.From_user.HeadImg}}" class="avatar avatar-54 photo" height="54" width="54" src="{{$elem.From_user.HeadImg}}" style="display: block;">
 		              <div class="c-main" id="div-comment-18350">{{$elem.To_comment.Content}}
 		                <div class="c-meta">
 		                  <span class="c-author">{{$elem.To_comment.From_user.Name}}</span>{{$elem.To_comment.Cdate}}
@@ -171,37 +171,7 @@
   </div>
 </div>
 </div>
-		</div>
-		<aside class="sidebar">	
-			<div class="widget widget_text">
-				<div class="textwidget">
-					</div>
-				</div>
-			</div>
-			<div class="widget widget_text">
-				<div class="title">
-					<h2><i class="themify-menu-icon ti-themify-favicon"></i> 写在前头</h2>
-				</div>			
-				<div class="textwidget" style="padding: 5px 20px 20px 20px;">
-					<div class="alert alert-info">
-						<p>这是我的个人博客，如果有问题需要讨论，请评论！</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="widget d_postlist">
-			  <div class="title">
-			    <h2>最新发布</h2></div>
-			  <ul>
-			{{range $index, $elem := .newArticles}}
-			    <li>
-			      <a href="/article/{{$elem.Uid}}" title="{{$elem.Title}}" style='padding-left:0px;'>
-			        <span class="text" style="height:30px;margin-left:10px">{{$elem.Title}}</span>
-			        <span class="muted">{{$elem.Cdate}}</span>
-			        <span class="muted" style="float: right;">{{$elem.Comments}}评论</span></a>
-			    </li>
-			{{end}}			
-			  </ul>
-			</div>
-
-		</aside>
+</div>
+<script>
+set_pagination_v2({{.pagenum}},{{.page}},10,{{.pageUrl}});
+</script>

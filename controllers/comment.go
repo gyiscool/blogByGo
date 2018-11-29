@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"fmt"
 	"blogByGo/models"
 	_ "blogByGo/models"
+	"fmt"
 	_ "reflect"
 	"strconv"
 	_ "time"
@@ -135,6 +135,14 @@ func (c *CommentController) Post() {
 	}
 	comment.From_user = &user
 	o.Insert(&comment)
+
+	//计算评论次数
+
+	commentNum, _ := o.QueryTable("comment").Filter("post_id", postId).Count()
+
+	post.Comments = commentNum
+
+	o.Update(&post)
 
 	mystruct := &models.SampRes{Success: 1, Message: "记录成功", Data: user}
 	c.Data["json"] = mystruct
