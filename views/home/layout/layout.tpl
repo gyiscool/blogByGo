@@ -91,8 +91,7 @@ window._deel = {name: '耿阳的个人博客',url: '8', ajaxpager: '/ss/ss', com
 			<a href="#">
 				<h1>
 					<span class="yusi-mono" style="font-family: FangSong;">耿阳&nbsp;</span>
-					<span class="yusi-bloger" style="font-family: KaiTi;">&nbsp;de&nbsp;个人博客{{.ptermId}}
-</span>
+					<span class="yusi-bloger" style="font-family: KaiTi;">&nbsp;de&nbsp;私人星球 ^.^</span>
 				</h1>
 			</a>
 		</div>
